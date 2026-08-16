@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { SITE, DISTRICTS } from '@/lib/site-config';
+import { DISTRICTS } from '@/lib/site-config';
 import HeroSlider from '@/components/HeroSlider';
 import TrustStrip from '@/components/TrustStrip';
 import ServicesGrid from '@/components/ServicesGrid';
@@ -10,7 +10,7 @@ import StickyMobileCTA from '@/components/StickyMobileCTA';
 import JsonLd from '@/components/JsonLd';
 import { organizationSchema, websiteSchema, faqSchema } from '@/lib/schema';
 import { faqs } from '@/lib/faq-data';
-import { Star, ShieldAlert, BadgeCheck, Users2, Building2, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Star, BadgeCheck, Users2, Building2, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: {
@@ -72,7 +72,7 @@ export default function Home() {
     <>
       <JsonLd data={graphSchema} />
       
-      <main className="flex-1 w-full bg-brand-dark">
+      <main id="main" className="flex-1 w-full bg-brand-dark">
         {/* Hero Area */}
         <HeroSlider />
 

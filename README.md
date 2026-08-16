@@ -42,6 +42,10 @@ Geliştirme veya canlı ortama geçişte kök dizinde bir `.env.local` dosyası 
 | `NEXT_PUBLIC_CLARITY_ID`| Microsoft Clarity Proje Kimliği. | [clarity.microsoft.com](https://clarity.microsoft.com) panelinden alınan 10 haneli proje kodu. |
 | `NEXT_PUBLIC_GSC_VERIFICATION`| Google Search Console doğrulama kodu. | Search Console mülk doğrulama adımındaki `<meta>` etiketinin `content` değeri. |
 | `NEXT_PUBLIC_YANDEX_VERIFICATION`| Yandex Webmaster doğrulama kodu. | Yandex Webmaster panelindeki doğrulama meta etiketi içeriği. |
+| `RESEND_API_KEY` | Resend E-posta Gönderim API Anahtarı. | [resend.com](https://resend.com) panelinden oluşturulan `re_...` API anahtarı. |
+| `LEAD_NOTIFY_EMAIL` | Teklif formlarının gönderileceği hedef bildirim e-posta adresi. | Bildirimlerin iletilmesini istediğiniz alıcı e-posta adresi. |
+| `LEAD_FROM_EMAIL` | E-postaların gönderici (From) adresi. | Resend üzerinde doğrulanmış alan adınızdan bir e-posta adresi. |
+| `LEAD_WEBHOOK_URL` | Hata durumunda teklif verilerinin gönderileceği webhook URL'si. | Slack, Discord, Zapier veya özel API POST webhook adresi. |
 
 *Örnek şablon için [.env.example](file:///.env.example) dosyasını inceleyin.*
 

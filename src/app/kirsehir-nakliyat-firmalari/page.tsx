@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import { faqSchema, serviceSchema } from '@/lib/schema';
-import { SITE } from '@/lib/site-config';
+
 import { ArrowRight, HelpCircle, Shield, FileText, ClipboardList, CheckCircle2, AlertOctagon, Scale } from 'lucide-react';
 import Breadcrumb from '@/components/Breadcrumb';
 import RelatedLinks from '@/components/RelatedLinks';
@@ -78,7 +78,7 @@ export default function FirmalarRehberiPage() {
     <>
       <JsonLd data={schemas} />
       
-      <main className="pt-24 bg-off-white min-h-screen">
+      <main id="main" className="pt-24 bg-off-white min-h-screen">
         <Breadcrumb items={[{ name: 'Firma Seçim Rehberi', url: '/kirsehir-nakliyat-firmalari' }]} className="pt-4" />
         {/* Intro Section */}
         <section className="py-20 bg-navy text-white text-center space-y-4">

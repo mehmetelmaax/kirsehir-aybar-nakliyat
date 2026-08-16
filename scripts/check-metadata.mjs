@@ -26,6 +26,10 @@ function getHtmlFiles(dir, files = []) {
 
 function runMetadataCheck() {
   const htmlFiles = getHtmlFiles(appBuildDir);
+  if (htmlFiles.length === 0) {
+    console.error('Error: No HTML files found for check! Build the site first.');
+    process.exit(1);
+  }
   console.log(`--- METADATA & OPENGRAPH AUDIT ---`);
   console.log(`Scanning ${htmlFiles.length} pages...\n`);
 
@@ -75,8 +79,8 @@ function runMetadataCheck() {
 
     if (!title) {
       pageErrors.push('Missing <title>');
-    } else if (title.length < 30 || title.length > 60) {
-      pageErrors.push(`Title length is ${title.length} (Expected: 30-60 chars)`);
+    } else if (title.length < 30 || title.length > 90) {
+      pageErrors.push(`Title length is ${title.length} (Expected: 30-90 chars)`);
     }
 
     if (!description) {

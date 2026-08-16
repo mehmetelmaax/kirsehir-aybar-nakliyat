@@ -27,3 +27,9 @@ Thumbs.db
 
 # PEM certs
 *.pem
+
+# Project custom ignores
+tsconfig.tsbuildinfo
+kullanici-galeri/
+scratch/
+.seo-snapshots/

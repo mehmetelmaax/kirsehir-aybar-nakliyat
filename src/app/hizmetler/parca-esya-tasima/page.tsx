@@ -1,17 +1,17 @@
 import QuoteForm from '@/components/QuoteForm';
 import Breadcrumb from '@/components/Breadcrumb';
-import RelatedLinks from '@/components/RelatedLinks';
+
 import React from 'react';
-import { FACTS } from '@/lib/facts';
-import PricingMatrix from '@/components/geo/PricingMatrix';
-import PackingSpecs from '@/components/geo/PackingSpecs';
-import K3InfoBlock from '@/components/geo/K3InfoBlock';
+
+
+
+
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import { faqSchema, serviceSchema } from '@/lib/schema';
-import { SITE } from '@/lib/site-config';
-import { ArrowRight, HelpCircle, Shield, Truck, Package, CheckCircle2, BadgeAlert, Scale } from 'lucide-react';
+
+import { HelpCircle, Shield, Truck, Package, Scale } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Kırşehir Parça Eşya Taşıma',
@@ -66,7 +66,7 @@ export default function ParcaEsyaTasimaPage() {
     <>
       <JsonLd data={schemas} />
       
-      <main className="pt-24 bg-off-white min-h-screen">
+      <main id="main" className="pt-24 bg-off-white min-h-screen">
         <Breadcrumb items={[{ name: 'Lojistik Hizmetler', url: '/#hizmetlerimiz' }, { name: 'Parça Eşya Taşıma', url: '/hizmetler/parca-esya-tasima' }]} className="pt-4" />
                 {/* Intro Section */}
         <section className="py-20 bg-navy text-white text-center space-y-4">

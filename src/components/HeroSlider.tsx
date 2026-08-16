@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { MessageCircle, Phone, ShieldCheck, Clock, Users, ChevronLeft, ChevronRight, MapPin } from 'lucide-react';
 import QuoteForm from './QuoteForm';
 import { SITE } from '@/lib/site-config';
-import { FACTS } from '@/lib/facts';
+
 import { trackEvent } from '@/lib/analytics';
 
 const SLIDES = [

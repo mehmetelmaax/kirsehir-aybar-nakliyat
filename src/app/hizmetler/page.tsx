@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Truck, Globe, ArrowUpRight, Building2, ShieldCheck, FileText, Warehouse, Package, Boxes } from 'lucide-react';
 import Breadcrumb from '@/components/Breadcrumb';
-import { SITE, SERVICES } from '@/lib/site-config';
+import { SERVICES } from '@/lib/site-config';
 import JsonLd from '@/components/JsonLd';
 import { breadcrumbSchema } from '@/lib/schema';
 
@@ -42,7 +42,7 @@ export default function HizmetlerPage() {
   return (
     <>
       <JsonLd data={schemas} />
-      <main className="pt-24 bg-off-white flex-1 w-full">
+      <main id="main" className="pt-24 bg-off-white flex-1 w-full">
         <Breadcrumb items={[{ name: 'Hizmetlerimiz', url: '/hizmetler' }]} className="pt-4" />
         
         {/* Intro */}

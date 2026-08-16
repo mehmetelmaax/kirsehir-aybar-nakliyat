@@ -25,6 +25,10 @@ function getHtmlFiles(dir, files = []) {
 
 function runHeadingsCheck() {
   const htmlFiles = getHtmlFiles(appBuildDir);
+  if (htmlFiles.length === 0) {
+    console.error('Error: No HTML files found for check! Build the site first.');
+    process.exit(1);
+  }
   console.log(`--- HEADING HIERARCHY AUDIT ---`);
   console.log(`Scanning ${htmlFiles.length} pages...\n`);
 

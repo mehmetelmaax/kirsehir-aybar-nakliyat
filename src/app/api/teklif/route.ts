@@ -4,8 +4,10 @@ import { Resend } from 'resend';
 import { SITE } from '@/lib/site-config';
 import { estimatePrice, PriceInput } from '@/lib/pricing';
 
+const RATE_LIMIT_MAX = 10;
+const RATE_LIMIT_WINDOW_MS = 60000;
+
 // Simple in-memory cache for IP rate limiting
-// NOT: In-memory; serverless'ta instance başına çalışır. Kalıcı çözüm için Vercel KV / Upstash Redis gerekir.
 const ipCache = new Map<string, { count: number; expiresAt: number }>();
 
 function cleanOldCache() {
@@ -15,6 +17,29 @@ function cleanOldCache() {
       ipCache.delete(ip);
     }
   }
+}
+
+function escapeHtml(str: string): string {
+  return str.replace(/[&<>"']/g, (m) => {
+    switch (m) {
+      case '&': return '&amp;';
+      case '<': return '&lt;';
+      case '>': return '&gt;';
+      case '"': return '&quot;';
+      case "'": return '&#39;';
+      default: return m;
+    }
+  });
+}
+
+function maskPhone(phone: string): string {
+  const clean = phone.replace(/\s+/g, '');
+  if (clean.length >= 7) {
+    const start = clean.slice(0, clean.length - 7);
+    const end = clean.slice(clean.length - 3);
+    return `${start}****${end}`;
+  }
+  return '***-***-**';
 }
 
 function calculateServerEstimate(rooms: string, elevator: string, fromDistrict: string, toDistrict: string) {
@@ -51,9 +76,9 @@ export async function POST(req: NextRequest) {
     const ipData = ipCache.get(ip);
     
     if (!ipData || now > ipData.expiresAt) {
-      ipCache.set(ip, { count: 1, expiresAt: now + 60000 }); // 60s window
+      ipCache.set(ip, { count: 1, expiresAt: now + RATE_LIMIT_WINDOW_MS });
     } else {
-      if (ipData.count >= 3) {
+      if (ipData.count >= RATE_LIMIT_MAX) {
         return NextResponse.json(
           { ok: false, message: 'Çok fazla istek gönderdiniz. Lütfen bir dakika sonra tekrar deneyin.' },
           { status: 429 }
@@ -68,7 +93,6 @@ export async function POST(req: NextRequest) {
     // 3. Honeypot check (website must be empty)
     if (body.website && body.website.trim().length > 0) {
       console.warn('BOT_DETECTION: Honeypot filled by bot:', body.website);
-      // Return 200 silently to deceive the bot
       return NextResponse.json({ ok: true, estimate: { min: 20000, max: 25000 } });
     }
 
@@ -90,72 +114,89 @@ export async function POST(req: NextRequest) {
     const timestamp = new Date().toLocaleString('tr-TR', { timeZone: 'Europe/Istanbul' });
     const est = calculateServerEstimate(leadData.rooms, leadData.elevator, leadData.fromDistrict, leadData.toDistrict);
 
-    // 5. Try sending email via Resend
+    // Escape variables for HTML template
+    const nameEscaped = escapeHtml(leadData.name);
+    const phoneEscaped = escapeHtml(leadData.phone);
+    const fromDistrictEscaped = escapeHtml(leadData.fromDistrict);
+    const toDistrictEscaped = escapeHtml(leadData.toDistrict);
+    const roomsEscaped = escapeHtml(leadData.rooms);
+    const referrerEscaped = escapeHtml(referrer);
+    const timestampEscaped = escapeHtml(timestamp);
+
+    // 5. Send email via Resend
     const apiKey = process.env.RESEND_API_KEY;
     const notifyEmail = process.env.LEAD_NOTIFY_EMAIL || SITE.email;
+    const fromEmail = process.env.LEAD_FROM_EMAIL || 'Aybar Nakliyat <onboarding@resend.dev>';
     const webhookUrl = process.env.LEAD_WEBHOOK_URL;
 
-    try {
-      if (apiKey) {
+    let emailSent = false;
+    let emailDeliveryError: any = null;
+
+    if (apiKey) {
+      try {
         const resend = new Resend(apiKey);
         await resend.emails.send({
-          from: 'Aybar Nakliyat <onboarding@resend.dev>',
+          from: fromEmail,
           to: notifyEmail,
           subject: `Yeni Teklif Talebi - ${leadData.name}`,
           html: `
             <h3>Yeni Teklif Talebi Detayları</h3>
-            <p><strong>Ad Soyad:</strong> ${leadData.name}</p>
-            <p><strong>Telefon:</strong> ${leadData.phone}</p>
-            <p><strong>Nereden:</strong> ${leadData.fromDistrict}</p>
-            <p><strong>Nereye:</strong> ${leadData.toDistrict}</p>
-            <p><strong>Oda Sayısı (Eşya):</strong> ${leadData.rooms}</p>
+            <p><strong>Ad Soyad:</strong> ${nameEscaped}</p>
+            <p><strong>Telefon:</strong> ${phoneEscaped}</p>
+            <p><strong>Nereden:</strong> ${fromDistrictEscaped}</p>
+            <p><strong>Nereye:</strong> ${toDistrictEscaped}</p>
+            <p><strong>Oda Sayısı (Eşya):</strong> ${roomsEscaped}</p>
             <p><strong>Asansör:</strong> ${leadData.elevator === 'evet' ? 'Evet, İstiyor' : 'Hayır, İstemiyor'}</p>
             <hr />
             <p><strong>Tahmini Fiyat Aralığı:</strong> ₺${est.min.toLocaleString('tr-TR')} - ₺${est.max.toLocaleString('tr-TR')}</p>
-            <p><strong>Referer / Sayfa:</strong> ${referrer}</p>
-            <p><strong>Gönderim Zamanı:</strong> ${timestamp}</p>
+            <p><strong>Referer / Sayfa:</strong> ${referrerEscaped}</p>
+            <p><strong>Gönderim Zamanı:</strong> ${timestampEscaped}</p>
           `
         });
-      } else {
-        console.warn('LEAD_NOTIFY_WARNING: RESEND_API_KEY not configured. Email notification skipped.');
+        emailSent = true;
+      } catch (err: any) {
+        emailDeliveryError = err;
+        console.error('LEAD_DELIVERY_FAILED: Resend failed to deliver email notification. Payload:', JSON.stringify({
+          ...leadData,
+          phone: maskPhone(leadData.phone),
+          referrer,
+          timestamp,
+          estimate: est
+        }), err);
       }
-    } catch (emailError) {
-      console.error('LEAD_DELIVERY_FAILED: Resend failed to deliver email notification. Payload:', JSON.stringify({
-        ...leadData,
-        referrer,
-        timestamp,
-        estimate: est
-      }), emailError);
+    } else {
+      console.warn('LEAD_NOTIFY_WARNING: RESEND_API_KEY not configured. Email notification skipped.');
+      emailDeliveryError = new Error('RESEND_API_KEY is not defined');
+    }
 
-      // Webhook fallback
-      if (webhookUrl) {
-        try {
-          await fetch(webhookUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              ...leadData,
-              referrer,
-              timestamp,
-              estimate: est,
-              deliveryError: 'Resend email failed'
-            })
-          });
-        } catch (webhookError) {
-          console.error('LEAD_DELIVERY_FAILED: Webhook fallback also failed:', webhookError);
-        }
+    // 6. Trigger Webhook fallback if email sending failed/skipped
+    if (!emailSent && webhookUrl) {
+      try {
+        await fetch(webhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            ...leadData,
+            referrer,
+            timestamp,
+            estimate: est,
+            deliveryError: emailDeliveryError ? emailDeliveryError.message || String(emailDeliveryError) : 'Email skipped'
+          })
+        });
+      } catch (webhookError) {
+        console.error('LEAD_DELIVERY_FAILED: Webhook fallback also failed:', webhookError);
       }
     }
 
-    // 6. Log lead as JSON (Vercel backup)
+    // 7. Log lead as JSON (Vercel backup, masked phone)
     console.log('LEAD_CAPTURE:', JSON.stringify({
       ...leadData,
+      phone: maskPhone(leadData.phone),
       referrer,
       timestamp,
       estimate: est
     }));
 
-    // Return success with estimate
     return NextResponse.json({ ok: true, estimate: est });
 
   } catch (error: any) {

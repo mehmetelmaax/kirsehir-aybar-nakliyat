@@ -40,7 +40,7 @@ export default function TeklifAlPage() {
   return (
     <>
       <JsonLd data={faqSchema(teklifFaqs)} />
-      <main className="pt-24 min-h-screen bg-navy text-white flex flex-col justify-between">
+      <main id="main" className="pt-24 min-h-screen bg-navy text-white flex flex-col justify-between">
         <Breadcrumb items={[{ name: 'Teklif Al', url: '/teklif-al' }]} className="pt-4 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full" dark={true} />
         
         {/* Title and Intro */}

@@ -2,7 +2,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 import GalleryGrid from '@/components/GalleryGrid';
 import { Camera } from 'lucide-react';
-import { SITE } from '@/lib/site-config';
+
 import Breadcrumb from '@/components/Breadcrumb';
 
 export const metadata: Metadata = {
@@ -69,7 +69,7 @@ export default function GalleryPage() {
   return (
     <>
       
-      <main className="pt-24 bg-off-white min-h-screen">
+      <main id="main" className="pt-24 bg-off-white min-h-screen">
         <Breadcrumb items={[{ name: 'Galeri', url: '/galeri' }]} className="pt-4" />
         {/* Intro */}
         <section className="py-16 bg-navy text-white text-center space-y-4">

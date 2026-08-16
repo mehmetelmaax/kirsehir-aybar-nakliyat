@@ -80,57 +80,6 @@ export default async function BlogPostPage({ params }: Props) {
   const fileKey = post.image.split('/').pop()?.replace('.jpg', '') || '';
   const blurDataURL = IMAGE_BLURS[fileKey];
 
-  const relatedLinks: Record<string, {
-    blogs: { title: string; href: string }[];
-    services: { title: string; href: string }[];
-    districts: { title: string; href: string }[];
-  }> = {
-    'kirsehir-nakliyat-fiyatlari': {
-      blogs: [
-        { title: 'Pratik Eşya Paketleme Yöntemleri Rehberi', href: '/blog/esya-paketleme-rehberi' },
-        { title: 'Mobil Asansörlü Taşımacılık Avantajları', href: '/blog/asansorlu-tasima-avantajlari' }
-      ],
-      services: [
-        { title: 'Kırşehir Ücretsiz Ekspertiz Hizmeti', href: '/hizmetler/ucretsiz-ekspertiz' },
-        { title: 'Ev Taşıma Fiyatı Hesaplama Formu', href: '/teklif-al' }
-      ],
-      districts: [
-        { title: 'Merkez Evden Eve Nakliyat Hizmetleri', href: '/bolgeler/kirsehir-merkez-evden-eve-nakliyat' },
-        { title: 'Kaman Evden Eve Nakliyat Hizmetleri', href: '/bolgeler/kaman-evden-eve-nakliyat' }
-      ]
-    },
-    'esya-paketleme-rehberi': {
-      blogs: [
-        { title: 'Kırşehir Evden Eve Nakliyat Fiyatları Nasıl Belirlenir?', href: '/blog/kirsehir-nakliyat-fiyatlari' },
-        { title: 'Mobil Asansörlü Taşımacılık Avantajları', href: '/blog/asansorlu-tasima-avantajlari' }
-      ],
-      services: [
-        { title: 'Profesyonel Eşya Paketleme Hizmeti', href: '/hizmetler/profesyonel-esya-paketleme' },
-        { title: 'Kırşehir Şehir İçi Ev Taşıma Çözümleri', href: '/hizmetler/sehirici-evden-eve-nakliyat' }
-      ],
-      districts: [
-        { title: 'Çiçekdağı Evden Eve Nakliyat Hizmetleri', href: '/bolgeler/cicekdagi-evden-eve-nakliyat' },
-        { title: 'Mucur Evden Eve Nakliyat Hizmetleri', href: '/bolgeler/mucur-evden-eve-nakliyat' }
-      ]
-    },
-    'asansorlu-tasima-avantajlari': {
-      blogs: [
-        { title: 'Kırşehir Evden Eve Nakliyat Fiyatları Nasıl Belirlenir?', href: '/blog/kirsehir-nakliyat-fiyatlari' },
-        { title: 'Pratik Eşya Paketleme Yöntemleri Rehberi', href: '/blog/esya-paketleme-rehberi' }
-      ],
-      services: [
-        { title: 'Asansörlü Evden Eve Nakliyat Hizmeti', href: '/hizmetler/asansorlu-evden-eve-nakliyat' },
-        { title: 'Şehirlerarası Evden Eve Taşımacılık', href: '/hizmetler/sehirlerarasi-evden-eve-nakliyat' }
-      ],
-      districts: [
-        { title: 'Kaman Evden Eve Nakliyat Hizmetleri', href: '/bolgeler/kaman-evden-eve-nakliyat' },
-        { title: 'Merkez Evden Eve Nakliyat Hizmetleri', href: '/bolgeler/kirsehir-merkez-evden-eve-nakliyat' }
-      ]
-    }
-  };
-
-  const related = relatedLinks[post.id] || { blogs: [], services: [], districts: [] };
-
   const articleSchema = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -168,7 +117,7 @@ export default async function BlogPostPage({ params }: Props) {
       <JsonLd data={graphSchema} />
       <ScrollDepth />
       
-      <main className="pt-24 bg-off-white min-h-screen">
+      <main id="main" className="pt-24 bg-off-white min-h-screen">
         <Breadcrumb items={[{ name: 'Blog', url: '/blog' }, { name: post.title, url: `/blog/${post.id}` }]} className="pt-4" />
         <article className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           

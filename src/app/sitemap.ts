@@ -40,7 +40,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   // 5. Bölgeler - Şehirlerarası Özel (Yok, boş dizi)
-  const specialRegionPages: any[] = [];
+  const specialRegionPages: { url: string; lastModified: Date; changeFrequency: 'monthly'; priority: number }[] = [];
 
   // 6. İletişim (0.8, monthly)
   const iletisimPage = {

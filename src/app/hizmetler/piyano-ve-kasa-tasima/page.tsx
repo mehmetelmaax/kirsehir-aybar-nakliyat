@@ -1,17 +1,17 @@
 import QuoteForm from '@/components/QuoteForm';
 import Breadcrumb from '@/components/Breadcrumb';
-import RelatedLinks from '@/components/RelatedLinks';
+
 import React from 'react';
-import { FACTS } from '@/lib/facts';
-import PricingMatrix from '@/components/geo/PricingMatrix';
-import PackingSpecs from '@/components/geo/PackingSpecs';
-import K3InfoBlock from '@/components/geo/K3InfoBlock';
+
+
+
+
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import { faqSchema, serviceSchema } from '@/lib/schema';
-import { SITE } from '@/lib/site-config';
-import { ArrowRight, HelpCircle, Shield, Truck, Coins, CheckCircle2, AlertOctagon, Scale } from 'lucide-react';
+
+import { HelpCircle, Shield, Truck, Coins, CheckCircle2, AlertOctagon } from 'lucide-react';
 
 export const metadata: Metadata = {
   title: 'Kırşehir Piyano ve Kasa Taşıma',
@@ -66,7 +66,7 @@ export default function PiyanoVeKasaTasimaPage() {
     <>
       <JsonLd data={schemas} />
       
-      <main className="pt-24 bg-off-white min-h-screen">
+      <main id="main" className="pt-24 bg-off-white min-h-screen">
         <Breadcrumb items={[{ name: 'Nakliye Çözümleri', url: '/#hizmetlerimiz' }, { name: 'Piyano ve Kasa Taşıma', url: '/hizmetler/piyano-ve-kasa-tasima' }]} className="pt-4" />
                 {/* Intro Section */}
         <section className="py-20 bg-navy text-white text-center space-y-4">

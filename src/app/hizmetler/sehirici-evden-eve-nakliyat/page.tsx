@@ -4,12 +4,12 @@ import Breadcrumb from '@/components/Breadcrumb';
 import RelatedLinks from '@/components/RelatedLinks';
 import JsonLd from '@/components/JsonLd';
 import { serviceSchema, faqSchema } from '@/lib/schema';
-import { SITE } from '@/lib/site-config';
+
 import { FACTS } from '@/lib/facts';
 import React from 'react';
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import { ArrowRight, CheckCircle2 } from 'lucide-react';
+
+
 
 export const metadata: Metadata = {
   title: 'Kırşehir Şehir İçi Ev Taşıma',
@@ -51,7 +51,7 @@ export default function SehiriciPage() {
     <>
       <JsonLd data={schemas} />
       
-      <main className="pt-24 bg-off-white">
+      <main id="main" className="pt-24 bg-off-white">
         <Breadcrumb items={[{ name: 'Hizmet Yelpazesi', url: '/#hizmetlerimiz' }, { name: 'Şehiriçi Nakliyat', url: '/hizmetler/sehirici-evden-eve-nakliyat' }]} className="pt-4" />
         {/* Intro */}
         <section className="py-20 bg-navy text-white text-center space-y-4">

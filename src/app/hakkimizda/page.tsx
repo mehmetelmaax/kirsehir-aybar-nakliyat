@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import { Shield, Users, Award, Calendar, CheckCircle2, Star } from 'lucide-react';
-import { SITE } from '@/lib/site-config';
+import { Users, Award, Calendar, CheckCircle2, Star } from 'lucide-react';
+
 import Breadcrumb from '@/components/Breadcrumb';
 import K3InfoBlock from '@/components/geo/K3InfoBlock';
 import { FACTS } from '@/lib/facts';
@@ -20,7 +20,7 @@ export default function HakkimizdaPage() {
   return (
     <>
       
-      <main className="pt-24 bg-brand-light">
+      <main id="main" className="pt-24 bg-brand-light">
         <Breadcrumb items={[{ name: 'Hakkımızda', url: '/hakkimizda' }]} className="pt-4" />
         
         {/* Dynamic Intro Banner (Styled via globals.css using the new sub-banner asset) */}

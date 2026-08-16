@@ -3,15 +3,15 @@ import Breadcrumb from '@/components/Breadcrumb';
 import RelatedLinks from '@/components/RelatedLinks';
 import JsonLd from '@/components/JsonLd';
 import { serviceSchema, faqSchema } from '@/lib/schema';
-import { SITE } from '@/lib/site-config';
+
 ﻿import React from 'react';
-import { FACTS } from '@/lib/facts';
-import PricingMatrix from '@/components/geo/PricingMatrix';
+
+
 import PackingSpecs from '@/components/geo/PackingSpecs';
-import K3InfoBlock from '@/components/geo/K3InfoBlock';
+
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import { ArrowRight, CheckCircle2 } from 'lucide-react';
+
+
 
 export const metadata: Metadata = {
   title: 'Profesyonel Eşya Paketleme Hizmeti',
@@ -53,7 +53,7 @@ export default function PaketlemePage() {
     <>
       <JsonLd data={schemas} />
       
-      <main className="pt-24 bg-off-white">
+      <main id="main" className="pt-24 bg-off-white">
         <Breadcrumb items={[{ name: 'Hizmet Grupları', url: '/#hizmetlerimiz' }, { name: 'Eşya Paketleme', url: '/hizmetler/profesyonel-esya-paketleme' }]} className="pt-4" />
                 {/* Intro */}
         <section className="py-20 bg-navy text-white text-center space-y-4">

@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { estimatePrice, PriceInput, PriceEstimate } from '@/lib/pricing';
+import React, { useState } from 'react';
+import { estimatePrice, PriceInput } from '@/lib/pricing';
 import { SITE } from '@/lib/site-config';
 import { Calculator, MessageCircle, Phone, ArrowRight, ArrowLeft, CheckCircle2 } from 'lucide-react';
 import { trackEvent } from '@/lib/analytics';

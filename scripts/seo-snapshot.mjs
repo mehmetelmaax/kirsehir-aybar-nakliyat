@@ -96,6 +96,11 @@ function runSnapshot() {
     process.exit(1);
   }
 
+  const siteConfigPath = path.join(__dirname, '..', 'src', 'lib', 'site-config.ts');
+  const siteConfigContent = fs.readFileSync(siteConfigPath, 'utf8');
+  const urlMatch = siteConfigContent.match(/url:\s*'([^']+)'/);
+  const baseUrl = urlMatch ? urlMatch[1] : 'https://kirsehiraybarnakliyat.com.tr';
+
   const htmlFiles = getHtmlFiles(appBuildDir);
   const snapshotData = [];
 
@@ -136,7 +141,7 @@ function runSnapshot() {
     let externalLinks = 0;
     for (const match of linkMatches) {
       const href = match[1].trim();
-      const isInternal = href.startsWith('/') || href.startsWith('https://adanaevdeneveasansorlunakliyat.com.tr');
+      const isInternal = href.startsWith('/') || href.startsWith(baseUrl);
       const isExcluded = href.startsWith('//') || href.startsWith('mailto:') || href.startsWith('tel:') || href === '#';
       if (isExcluded) continue;
       if (isInternal) internalLinks++;

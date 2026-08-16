@@ -78,7 +78,7 @@ export default async function RoutePage({ params }: PageProps) {
     <>
       <JsonLd data={schemas} />
 
-      <main className="pt-24 bg-off-white">
+      <main id="main" className="pt-24 bg-off-white">
         <Breadcrumb
           items={[
             { name: 'Şehirlerarası Rotalar', url: '/hizmetler/sehirlerarasi-evden-eve-nakliyat' },

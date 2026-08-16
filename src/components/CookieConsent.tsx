@@ -30,7 +30,7 @@ export default function CookieConsent() {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 md:left-auto md:max-w-md z-50 animate-fade-in no-print">
+    <div className="fixed bottom-24 left-4 right-4 md:bottom-4 md:left-auto md:max-w-md z-50 animate-fade-in no-print">
       <div className="bg-navy border border-white/10 rounded-2xl p-5 shadow-2xl space-y-4">
         <div className="flex gap-3 items-start">
           <div className="bg-orange/20 text-orange p-2 rounded-lg flex-shrink-0 mt-0.5">

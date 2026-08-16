@@ -1,13 +1,13 @@
 import QuoteForm from '@/components/QuoteForm';
 import Breadcrumb from '@/components/Breadcrumb';
-import RelatedLinks from '@/components/RelatedLinks';
+
 import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import { faqSchema, serviceSchema } from '@/lib/schema';
-import { SITE } from '@/lib/site-config';
-import { FACTS } from '@/lib/facts';
+
+
 import { HelpCircle, Shield, Warehouse, Building, ClipboardCheck, Scale, AlertOctagon, CheckCircle2 } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -63,7 +63,7 @@ export default function EsyaDepolamaPage() {
     <>
       <JsonLd data={schemas} />
       
-      <main className="pt-24 bg-off-white min-h-screen">
+      <main id="main" className="pt-24 bg-off-white min-h-screen">
         <Breadcrumb items={[{ name: 'Kurumsal Çözümler', url: '/#hizmetlerimiz' }, { name: 'Eşya Depolama', url: '/hizmetler/esya-depolama' }]} className="pt-4" />
         
         {/* Intro Section */}

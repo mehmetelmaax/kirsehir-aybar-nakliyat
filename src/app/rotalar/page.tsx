@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Truck } from 'lucide-react';
 import Breadcrumb from '@/components/Breadcrumb';
-import { SITE } from '@/lib/site-config';
+
 import { routesDatabase } from '@/lib/routes-data';
 import JsonLd from '@/components/JsonLd';
 import { breadcrumbSchema } from '@/lib/schema';
@@ -32,7 +32,7 @@ export default function RotalarPage() {
   return (
     <>
       <JsonLd data={schemas} />
-      <main className="pt-24 bg-off-white flex-1 w-full">
+      <main id="main" className="pt-24 bg-off-white flex-1 w-full">
         <Breadcrumb items={[{ name: 'Rotalarımız', url: '/rotalar' }]} className="pt-4" />
         
         {/* Intro */}

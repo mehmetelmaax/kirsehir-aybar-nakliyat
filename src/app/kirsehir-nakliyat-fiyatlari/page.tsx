@@ -1,12 +1,12 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import Link from 'next/link';
+
 import PriceCalculator from '@/components/PriceCalculator';
 import JsonLd from '@/components/JsonLd';
 import { faqSchema, serviceSchema } from '@/lib/schema';
 import { SITE } from '@/lib/site-config';
 import { FACTS } from '@/lib/facts';
-import { ArrowRight, HelpCircle, ShieldAlert, BadgeInfo, Coins, Scale, CheckCircle2 } from 'lucide-react';
+
 import Breadcrumb from '@/components/Breadcrumb';
 import RelatedLinks from '@/components/RelatedLinks';
 import PricingMatrix from '@/components/geo/PricingMatrix';
@@ -93,7 +93,7 @@ export default function FiyatlarPage() {
     <>
       <JsonLd data={schemas} />
       
-      <main className="pt-24 bg-off-white min-h-screen">
+      <main id="main" className="pt-24 bg-off-white min-h-screen">
         <Breadcrumb items={[{ name: 'Fiyat Rehberi', url: '/kirsehir-nakliyat-fiyatlari' }]} className="pt-4" />
         
         {/* Intro Section */}

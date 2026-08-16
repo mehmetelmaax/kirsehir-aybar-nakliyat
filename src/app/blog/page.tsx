@@ -17,7 +17,7 @@ const posts = Object.values(blogDatabase);
 export default function BlogPage() {
   return (
     <>
-      <main className="pt-24 bg-off-white">
+      <main id="main" className="pt-24 bg-off-white">
         <Breadcrumb items={[{ name: 'Blog', url: '/blog' }]} className="pt-4" />
         {/* Intro */}
         <section className="py-16 bg-navy text-white text-center space-y-4">

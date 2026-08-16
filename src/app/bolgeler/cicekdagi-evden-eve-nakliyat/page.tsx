@@ -1,12 +1,12 @@
 import QuoteForm from '@/components/QuoteForm';
 import PricingMatrix from '@/components/geo/PricingMatrix';
 import BuildingAnalysis from '@/components/geo/BuildingAnalysis';
-import { FACTS } from '@/lib/facts';
+
 import Breadcrumb from '@/components/Breadcrumb';
 import RelatedLinks from '@/components/RelatedLinks';
 import JsonLd from '@/components/JsonLd';
 import { serviceSchema, faqSchema } from '@/lib/schema';
-import { SITE } from '@/lib/site-config';
+
 import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
@@ -53,7 +53,7 @@ export default function ÇiçekdağıPage() {
     <>
       <JsonLd data={schemas} />
       
-      <main className="pt-24 bg-off-white">
+      <main id="main" className="pt-24 bg-off-white">
         <Breadcrumb items={[{ name: 'Bölgelerimiz', url: '/#ilcelerimiz' }, { name: 'Çiçekdağı', url: '/bolgeler/cicekdagi-evden-eve-nakliyat' }]} className="pt-4" />
         
         {/* Intro Section */}

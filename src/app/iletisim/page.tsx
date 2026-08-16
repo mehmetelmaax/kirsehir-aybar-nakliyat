@@ -20,7 +20,7 @@ export default function IletisimPage() {
     <>
       <JsonLd data={localBusinessSchema()} />
       
-      <main className="pt-24 bg-brand-light">
+      <main id="main" className="pt-24 bg-brand-light">
         <Breadcrumb items={[{ name: 'İletişim', url: '/iletisim' }]} className="pt-4" />
         
         {/* Dynamic Intro Banner */}

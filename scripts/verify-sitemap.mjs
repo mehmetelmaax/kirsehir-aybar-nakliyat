@@ -66,11 +66,12 @@ try {
   }
   console.log(`Indexable districts slugs parsed (${DISTRICTS_SLUGS.length}):`, DISTRICTS_SLUGS);
   // Extract routes slugs
-  const routesBlock = siteConfigContent.match(/export const ROUTES: readonly RouteConfig\[\] = \[([\s\S]+?)\] as const;/);
+  const routesDataPath = path.join(projectRoot, 'src', 'lib', 'routes-data.ts');
+  const routesDataContent = fs.readFileSync(routesDataPath, 'utf8');
   const ROUTES_SLUGS = [];
-  if (routesBlock) {
-    const routeRegex = /slug:\s*'([^']+)'/g;
-    while ((match = routeRegex.exec(routesBlock[1])) !== null) {
+  const routeRegex = /'([^']+)':\s*\{/g;
+  while ((match = routeRegex.exec(routesDataContent)) !== null) {
+    if (match[1] !== 'question' && match[1] !== 'answer') {
       ROUTES_SLUGS.push(match[1]);
     }
   }
@@ -100,9 +101,11 @@ try {
     '/galeri',
     '/yasal/gizlilik',
     '/yasal/kvkk',
-    '/adana-nakliyat-fiyatlari',
-    '/adana-nakliyat-firmalari',
+    '/kirsehir-nakliyat-fiyatlari',
+    '/kirsehir-nakliyat-firmalari',
     '/tasinma-kontrol-listesi',
+    '/hizmetler',
+    '/rotalar',
     ...ROUTES_SLUGS.map(slug => `/rotalar/${slug}`)
   ];
 
@@ -112,7 +115,7 @@ try {
   });
 
   // Verify URL count dynamically
-  const expectedCount = 1 + 1 + SERVICES_SLUGS.length + DISTRICTS_SLUGS.length + 1 + 1 + BLOG_IDS.length + 1 + 1 + 2 + 3 + ROUTES_SLUGS.length;
+  const expectedCount = 1 + 1 + SERVICES_SLUGS.length + DISTRICTS_SLUGS.length + 1 + 1 + BLOG_IDS.length + 1 + 1 + 2 + 5 + ROUTES_SLUGS.length;
   if (sitemapRoutes.length !== expectedCount) {
     throw new Error(`Sitemap verification failed: Expected exactly ${expectedCount} URLs, but sitemapRoutes contains ${sitemapRoutes.length} items.`);
   }

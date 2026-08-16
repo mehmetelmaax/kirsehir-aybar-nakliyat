@@ -64,6 +64,10 @@ function countWords(html) {
 
 function runWordCount() {
   const htmlFiles = getHtmlFiles(appBuildDir);
+  if (htmlFiles.length === 0) {
+    console.error('Error: No HTML files found for check! Build the site first.');
+    process.exit(1);
+  }
   console.log(`--- WORD COUNT AUDIT ---`);
   console.log(`Scanning word counts inside <main> for ${htmlFiles.length} pages...\n`);
 
