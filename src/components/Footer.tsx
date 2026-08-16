@@ -196,10 +196,10 @@ export default function Footer() {
               <Image
                 src="/img/growb-logo.png"
                 alt="Growb. Dijital Pazarlama ve SEO Ajansı logosu"
-                width={100}
-                height={32}
+                width={48}
+                height={48}
                 loading="lazy"
-                className="h-6 w-auto object-contain brightness-0 invert"
+                className="h-10 w-10 object-contain brightness-0 invert"
               />
             </a>
           </div>
