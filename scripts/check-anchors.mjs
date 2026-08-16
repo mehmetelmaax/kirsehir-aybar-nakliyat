@@ -6,6 +6,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const projectRoot = path.join(__dirname, '..');
 const buildAppDir = path.join(projectRoot, '.next', 'server', 'app');
+const siteConfigPath = path.join(projectRoot, 'src', 'lib', 'site-config.ts');
+const siteConfigContent = fs.readFileSync(siteConfigPath, 'utf8');
+const urlMatch = siteConfigContent.match(/url:\s*'([^']+)'/);
+const baseUrl = urlMatch ? urlMatch[1] : 'https://kirsehiraybarnakliyat.com.tr';
 
 // List of forbidden generic terms
 const forbiddenTerms = [
@@ -132,7 +136,7 @@ try {
 
       // Skip non-internal links
       if (!href) continue;
-      const isInternal = href.startsWith('/') || href.startsWith('https://adanaevdeneveasansorlunakliyat.com.tr') || href.startsWith('http://localhost');
+      const isInternal = href.startsWith('/') || href.startsWith(baseUrl) || href.startsWith('http://localhost');
       const isSpecial = href.startsWith('tel:') || href.startsWith('mailto:') || href.startsWith('https://wa.me') || href === '#';
 
       if (isSpecial || !isInternal) continue;

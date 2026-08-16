@@ -91,13 +91,24 @@ export default function KırşehirMerkezPage() {
               <span>Güvenilir Kırşehir Merkez Nakliye Çözümleri Nelerdir?</span>
             </h2>
             <p className="text-charcoal text-sm md:text-base leading-relaxed">
-              Kırşehir Merkez bölgesinde evden eve nakliyat süreçleri titiz bir planlama gerektirir. Kırşehir Aybar Nakliyat olarak, sektörel tecrübemizle Kırşehir Merkez bölgesindeki tüm ev taşıma ihtiyaçlarınıza profesyonel çözümler sunuyoruz. Taşınma gününün stresini en aza indirmek için eşyalarınızın tamamını sigortalı taşıma kapsamına alıyor, mobilyalarınızın de-montaj ve montaj işlemlerini tecrübeli marangoz ekibimizle gerçekleştiriyoruz. Sabit fiyat garantimiz sayesinde anlaştığımız taşıma bedeli taşınma gününde asla değişmez ve bütçeniz güvence altında kalır. Eşyalarınızın yol boyunca hasar görmemesi adına her taşıma öncesinde özel darbe emici Kraft ambalaj naylonları kullanıyor ve eşyaların sarsıntısız taşınması için kapalı çelik kasalı araçlarımızı sevk ediyoruz.
+              Kırşehir merkez sınırları içinde evden eve taşınırken güvenli ve sorunsuz bir hizmet almak en doğal hakkınızdır. Kırşehir Aybar Nakliyat olarak, Merkez genelinde tüm eşyalarınızı özel Kraft ambalaj kağıtları ile sararak çizilmelere karşı koruma altına alıyoruz. Sabit fiyat garantimiz kapsamında anlaşılan rakam üzerinde herhangi bir artış yapılmaz. Evinizdeki tüm demontaj ve montaj işleri kendi marangoz ekibimiz tarafından titizlikle tamamlanır. Taşınma işlemlerini korunaklı kapalı kasa araçlarımızın yanında, sürecin başından sonuna kadar sigortalı taşıma güvencesi sunarak tüm eşyalarınızı garanti altına alıyoruz.
             </p>
           </div>
 
           <PricingMatrix />
           <BuildingAnalysis districtName="Kırşehir Merkez" />
           <RelatedLinks currentSlug="kirsehir-merkez-evden-eve-nakliyat" type="bolge" />
+
+          {/* New Section: Kırşehir Merkez'e Özgü Lojistik */}
+          <div className="bg-white p-8 rounded-xl border border-gray-light shadow-sm space-y-4">
+            <h2 className="font-display font-bold text-navy text-xl md:text-2xl flex items-center gap-2">
+              <MapPin className="w-6 h-6 text-orange" />
+              <span>Kırşehir Merkez İlçe İçi Hızlı Lojistik ve Koordinasyon Nasıl Sağlanır?</span>
+            </h2>
+            <p className="text-charcoal text-sm md:text-base leading-relaxed">
+              Merkez ilçe, nakliye operasyonlarımızın ana üssü olup merkeze uzaklığı 0 kilometredir. Bu durum, Kırşehir Aybar Nakliyat olarak bize şehir içi taşımalarda benzersiz bir esneklik ve hız kazandırmaktadır. Merkez'de gerçekleştirdiğimiz evden eve nakliye hizmetlerinde, yol süresi minimum düzeyde olduğundan gün içinde birden fazla taşıma planlayabiliyor veya tek bir nakliyeyi çok daha rahat bir zaman diliminde tamamlayabiliyoruz. Kaman, Mucur ve Boztepe ilçeleriyle komşu olan Merkez'de en yoğun nakliye akışı bu komşu ilçeler ile Merkez arasındadır. Kış döneminde şehir içindeki caddelerin temizliği daha hızlı yapıldığından operasyonlarımız nadiren hava koşullarından etkilener. Merkez içindeki taşımalarda araç sevkiyat planlamamız anlık olarak güncellenebilmekte ve ekip sayımız dairenin büyüklüğüne göre tam zamanında adrese yönlendirilebilmektedir. Yakınlık sayesinde aynı gün içinde birden fazla ekibi koordine etme şansımız olmaktadır.
+            </p>
+          </div>
 
           {/* Section 2: Mahalleler */}
           <div className="bg-white p-8 rounded-xl border border-gray-light shadow-sm space-y-6">

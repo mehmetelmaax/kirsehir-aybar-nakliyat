@@ -101,7 +101,7 @@ export async function POST(req: NextRequest) {
     if (!validationResult.success) {
       const fieldErrors = validationResult.error.flatten().fieldErrors;
       const firstErrorKey = Object.keys(fieldErrors)[0];
-      const errorMessage = (fieldErrors as any)[firstErrorKey]?.[0] || 'Lütfen bilgilerinizi kontrol edin.';
+      const errorMessage = (fieldErrors as Record<string, string[] | undefined>)[firstErrorKey]?.[0] || 'Lütfen bilgilerinizi kontrol edin.';
       
       return NextResponse.json(
         { ok: false, message: errorMessage, errors: fieldErrors },
@@ -130,7 +130,8 @@ export async function POST(req: NextRequest) {
     const webhookUrl = process.env.LEAD_WEBHOOK_URL;
 
     let emailSent = false;
-    let emailDeliveryError: any = null;
+    let emailDeliveryError: Error | null = null;
+    const consentTimestamp = new Date().toISOString();
 
     if (apiKey) {
       try {
@@ -154,15 +155,17 @@ export async function POST(req: NextRequest) {
           `
         });
         emailSent = true;
-      } catch (err: any) {
-        emailDeliveryError = err;
+      } catch (err) {
+        const errorObject = err instanceof Error ? err : new Error(String(err));
+        emailDeliveryError = errorObject;
         console.error('LEAD_DELIVERY_FAILED: Resend failed to deliver email notification. Payload:', JSON.stringify({
           ...leadData,
           phone: maskPhone(leadData.phone),
           referrer,
           timestamp,
-          estimate: est
-        }), err);
+          estimate: est,
+          consentTimestamp
+        }), errorObject);
       }
     } else {
       console.warn('LEAD_NOTIFY_WARNING: RESEND_API_KEY not configured. Email notification skipped.');
@@ -180,11 +183,13 @@ export async function POST(req: NextRequest) {
             referrer,
             timestamp,
             estimate: est,
-            deliveryError: emailDeliveryError ? emailDeliveryError.message || String(emailDeliveryError) : 'Email skipped'
+            deliveryError: emailDeliveryError ? emailDeliveryError.message : 'Email skipped',
+            consentTimestamp
           })
         });
       } catch (webhookError) {
-        console.error('LEAD_DELIVERY_FAILED: Webhook fallback also failed:', webhookError);
+        const errorObject = webhookError instanceof Error ? webhookError : new Error(String(webhookError));
+        console.error('LEAD_DELIVERY_FAILED: Webhook fallback also failed:', errorObject);
       }
     }
 
@@ -194,13 +199,15 @@ export async function POST(req: NextRequest) {
       phone: maskPhone(leadData.phone),
       referrer,
       timestamp,
-      estimate: est
+      estimate: est,
+      consentTimestamp
     }));
 
     return NextResponse.json({ ok: true, estimate: est });
 
-  } catch (error: any) {
-    console.error('API_TEKLIF_ERROR:', error);
+  } catch (error) {
+    const errorObject = error instanceof Error ? error : new Error(String(error));
+    console.error('API_TEKLIF_ERROR:', errorObject);
     return NextResponse.json(
       { ok: false, message: 'İstek işlenirken sunucuda bir hata oluştu.' },
       { status: 500 }

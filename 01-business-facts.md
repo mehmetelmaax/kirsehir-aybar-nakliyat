@@ -53,7 +53,7 @@
 - **Current Platform**: Hardcoded Bootstrap site using jQuery, Fancybox, Owl Carousel, and fakeLoader.
 - **Page Count**: ~9 user-visible pages (`index.htm`, `14.htm`, `17.htm`, `7.htm`, `8.htm`, `9.htm`, `11.htm`, `12.htm`, `13.htm`). Plus several doorway pages in subdirectories like `251/` to `258/` used for crawler link-building.
 - **URL Structure**: `.htm` and `.html` extensions. Very basic legacy structure (e.g., `17.htm` for Şehiriçi).
-- **Title Tags**: `<title>ESENLER</title>` (very poor for local SEO).
+- **Title Tags**: `<title>AYBAR</title>` (very poor for local SEO).
 - **Meta Descriptions / Keywords**: None. No descriptive meta tags are present in the HTML head.
 - **Heading Structure**: No proper semantic headings. The homepage uses invisible H1 tags with a dot text (`<h1 align="left"><font size="3" color="#FFFFFF">.</font></h1>`) for style/spacing, which destroys SEO semantics.
 - **Structured Data**: None present on any page.

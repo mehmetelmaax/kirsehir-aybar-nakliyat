@@ -87,7 +87,7 @@ export default function KamanPage() {
               <span>Güvenilir Kaman Nakliye Çözümleri Nelerdir?</span>
             </h2>
             <p className="text-charcoal text-sm md:text-base leading-relaxed">
-              Kaman bölgesinde evden eve nakliyat süreçleri titiz bir planlama gerektirir. Kırşehir Aybar Nakliyat olarak, sektörel tecrübemizle Kaman bölgesindeki tüm ev taşıma ihtiyaçlarınıza profesyonel çözümler sunuyoruz. Taşınma gününün stresini en aza indirmek için eşyalarınızın tamamını sigortalı taşıma kapsamına alıyor, mobilyalarınızın de-montaj ve montaj işlemlerini tecrübeli marangoz ekibimizle gerçekleştiriyoruz. Sabit fiyat garantimiz sayesinde anlaştığımız taşıma bedeli taşınma gününde asla değişmez ve bütçeniz güvence altında kalır. Eşyalarınızın yol boyunca hasar görmemesi adına her taşıma öncesinde özel darbe emici Kraft ambalaj naylonları kullanıyor ve eşyaların sarsıntısız taşınması için kapalı çelik kasalı araçlarımızı sevk ediyoruz.
+              Kaman ve çevresinde ev taşımanın getirdiği zorlukları ortadan kaldıran çözümler üretiyoruz. Kırşehir Aybar Nakliyat bünyesindeki deneyimli ekipler, Kaman bölgesinde sigortalı taşıma modeliyle eşyalarınızı koruma altında nakleder. Taşınma gününün başında belirlenen sabit fiyat garantimiz sayesinde son dakika sürprizleriyle karşılaşmazsınız. Mobilya de-montaj ve montaj süreçleri uzman marangozlarımızca yürütülürken, eşyaların zarar görmemesi amacıyla Kraft ambalaj naylonları kullanılır ve nakliye işlemi modern kapalı kasa araçlarımızla titizlikle tamamlanır.
             </p>
           </div>
 
@@ -95,11 +95,22 @@ export default function KamanPage() {
           <BuildingAnalysis districtName="Kaman" />
           <RelatedLinks currentSlug="kaman-evden-eve-nakliyat" type="bolge" />
 
+          {/* New Section: Kaman'a Özgü Lojistik */}
+          <div className="bg-white p-8 rounded-xl border border-gray-light shadow-sm space-y-4">
+            <h2 className="font-display font-bold text-navy text-xl md:text-2xl flex items-center gap-2">
+              <MapPin className="w-6 h-6 text-orange" />
+              <span>Kaman Uzak Mesafe Taşımacılık Süreçleri ve Ekip Yönetimi Nasıl Planlanır?</span>
+            </h2>
+            <p className="text-charcoal text-sm md:text-base leading-relaxed">
+              Kaman ilçesi, il merkezine 55 kilometre uzaklıkta yer almaktadır. 55 kilometrelik bu mesafe, taşıma operasyonunun süresini ve planlamasını doğrudan etkiler. Kırşehir Aybar Nakliyat olarak Kaman'daki ev taşıma işlemlerinde, personelimizi ve nakliye araçlarımızı normal saatlerden çok daha erken yola çıkarıyoruz. Kaman'da aynı gün içinde taşıma ve yerleşme işlemlerini tamamlayabilmek adına disiplinli bir zaman yönetimi uyguluyoruz. Merkez, Akpınar ve Çiçekdağı ilçelerine komşu olan Kaman'da, en yoğun sevkiyatlar genellikle il merkezine doğru gerçekleşmektedir. Kış mevsiminde uzak yol şartlarının oluşturabileceği buzlanma gibi durumlara karşı lojistik ekibimiz güzergah güvenliğini önceden kontrol eder. Uzak ilçelerdeki operasyonlarda ekip sayısını artırarak yükleme süresini kısaltıyor, araçlarımıza ekstra yedek ambalaj malzemesi yükleyerek herhangi bir eksikliğin önüne geçiyoruz.
+            </p>
+          </div>
+
           {/* Section 2: Mahalleler */}
           <div className="bg-white p-8 rounded-xl border border-gray-light shadow-sm space-y-6">
             <h2 className="font-display font-bold text-navy text-xl md:text-2xl flex items-center gap-2">
               <MapPin className="w-6 h-6 text-orange" />
-              <span>Kaman'de Hizmet Verdiğimiz Mahalleler Nelerdir?</span>
+              <span>Kaman'da Hizmet Verdiğimiz Mahalleler Nelerdir?</span>
             </h2>
             <p className="text-charcoal text-sm md:text-base leading-relaxed">
               Kaman ilçesinin dört bir yanına ayrım yapmaksızın hızlı ve güvenilir nakliye ekiplerimizi sevk ediyoruz. Her mahallede farklı sokak genişliği, apartman yapısı ve asansör kurulum açısı bulunduğundan, operasyon öncesinde detaylı yer analizi yapmaktayız. İşte bölgede yoğun olarak hizmet verdiğimiz başlıca mahalleler:

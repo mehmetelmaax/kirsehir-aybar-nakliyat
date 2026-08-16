@@ -91,7 +91,7 @@ export default function AkçakentPage() {
               <span>Güvenilir Akçakent Nakliye Çözümleri Nelerdir?</span>
             </h2>
             <p className="text-charcoal text-sm md:text-base leading-relaxed">
-              Akçakent bölgesinde evden eve nakliyat süreçleri titiz bir planlama gerektirir. Kırşehir Aybar Nakliyat olarak, sektörel tecrübemizle Akçakent bölgesindeki tüm ev taşıma ihtiyaçlarınıza profesyonel çözümler sunuyoruz. Taşınma gününün stresini en aza indirmek için eşyalarınızın tamamını sigortalı taşıma kapsamına alıyor, mobilyalarınızın de-montaj ve montaj işlemlerini tecrübeli marangoz ekibimizle gerçekleştiriyoruz. Sabit fiyat garantimiz sayesinde anlaştığımız taşıma bedeli taşınma gününde asla değişmez ve bütçeniz güvence altında kalır. Eşyalarınızın yol boyunca hasar görmemesi adına her taşıma öncesinde özel darbe emici Kraft ambalaj naylonları kullanıyor ve eşyaların sarsıntısız taşınması için kapalı çelik kasalı araçlarımızı sevk ediyoruz.
+              Akçakent bölgesindeki ev taşıma ihtiyaçlarınızda güler yüzlü ve profesyonel ekibimizle hizmetinizdeyiz. Kırşehir Aybar Nakliyat olarak, Akçakent genelinde eşyalarınızı sigortalı taşıma güvencesiyle yeni adresinize ulaştırıyoruz. Sabit fiyat sözümüz sayesinde anlaştığımız ücret dışında ek masraflarla karşılaşmazsınız. Eşyalarınızın yolculuk boyunca zarar görmemesi için kaliteli Kraft ambalaj naylonları ile sarım yapmaktayız. Sökülmesi gereken gardırop ve yatak odası mobilyalarınız tecrübeli marangozumuzca sökülüp takılırken, taşıma işlemleri sadece kapalı kasalı nakliye kamyonlarımızla gerçekleştirilmektedir.
             </p>
           </div>
 
@@ -99,11 +99,22 @@ export default function AkçakentPage() {
           <BuildingAnalysis districtName="Akçakent" />
           <RelatedLinks currentSlug="akcakent-evden-eve-nakliyat" type="bolge" />
 
+          {/* New Section: Akçakent'e Özgü Lojistik */}
+          <div className="bg-white p-8 rounded-xl border border-gray-light shadow-sm space-y-4">
+            <h2 className="font-display font-bold text-navy text-xl md:text-2xl flex items-center gap-2">
+              <MapPin className="w-6 h-6 text-orange" />
+              <span>Akçakent Uzak Bölge Nakliye Operasyonları ve Kış Şartları Nelerdir?</span>
+            </h2>
+            <p className="text-charcoal text-sm md:text-base leading-relaxed">
+              Akçakent ilçesi Kırşehir il merkezine 70 kilometre mesafeyle en uzak ilçelerden biridir. Bu uzaklık, araçlarımızın ve ekibimizin nakliye gününde çok erken saatlerde çıkış yapmasını gerektirir. Kırşehir Aybar Nakliyat olarak Akçakent evden eve nakliyat işlerinde, operasyonun aynı gün içinde başarıyla bitmesi için erken hareket planı uyguluyoruz. Çiçekdağı ve Akpınar ile komşu olan Akçakent'ten en çok il merkezine doğru taşıma talebi almaktayız. Özellikle kış aylarında 70 kilometrelik engebeli yollarda ulaşım güvenliğini sağlamak için araçlarımızın lastik, zincir ve mekanik kontrolleri titizlikle yapılır. Uzak ilçelerde olası malzeme eksikliklerini önlemek için araçlarımızda ekstra Kraft ambalaj malzemeleri bulundururuz. Ekip sayımızı da geniş tutarak hem yükleme hem de indirme aşamalarını hızlandırıyor, böylece yol süresinin uzunluğuna rağmen taşınma işlemini gün ışığında tamamlamaya özen gösteriyoruz.
+            </p>
+          </div>
+
           {/* Section 2: Mahalleler */}
           <div className="bg-white p-8 rounded-xl border border-gray-light shadow-sm space-y-6">
             <h2 className="font-display font-bold text-navy text-xl md:text-2xl flex items-center gap-2">
               <MapPin className="w-6 h-6 text-orange" />
-              <span>Akçakent'de Hizmet Verdiğimiz Mahalleler Nelerdir?</span>
+              <span>Akçakent'te Hizmet Verdiğimiz Mahalleler Nelerdir?</span>
             </h2>
             <p className="text-charcoal text-sm md:text-base leading-relaxed">
               Akçakent ilçesinin dört bir yanına ayrım yapmaksızın hızlı ve güvenilir nakliye ekiplerimizi sevk ediyoruz. Her mahallede farklı sokak genişliği, apartman yapısı ve asansör kurulum açısı bulunduğundan, operasyon öncesinde detaylı yer analizi yapmaktayız. İşte bölgede yoğun olarak hizmet verdiğimiz başlıca mahalleler:

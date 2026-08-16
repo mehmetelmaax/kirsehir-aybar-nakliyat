@@ -34,7 +34,7 @@
 
 ### Logo Vectorization Plan
 The logo assets provided by the user are raster graphics. Before production, they must be converted to optimized inline SVGs to avoid fuzzy scaling on high-density mobile screens:
-1. **Desktop Header & Footer**: Horizontal lockmark containing the stylized house-arrow glyph followed by the typography `ESENLER EVDEN EVE NAKLİYAT`. Recommended layout height is `48px` to fit inside the `64px` header with proper padding.
+1. **Desktop Header & Footer**: Horizontal lockmark containing the stylized house-arrow glyph followed by the typography `KIRŞEHİR AYBAR NAKLİYAT`. Recommended layout height is `48px` to fit inside the `64px` header with proper padding.
 2. **Mobile Header (<= 430px)**: The standalone house+arrow icon, scaled to `32px` square, leaving maximal header width for click-to-call items.
 3. **Reversed Single-Color Logo**: Pure `#FFFFFF` fill for contrast against footer `--navy` backgrounds.
 4. **Favicon Assets**:

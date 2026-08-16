@@ -5,8 +5,8 @@ const testCases = [
   { input: 'ISTANBUL', expected: 'istanbul' },
   { input: 'Şekerpınar', expected: 'sekerpinar' },
   { input: 'İzmirli Nakliyeciler Çarşısı', expected: 'izmirli-nakliyeciler-carsisi' },
-  { input: 'Seyhan’dan Seyhan’a', expected: 'seyhandan-seyhana' },
-  { input: '---Adana Evden Eve Nakliyat---', expected: 'adana-evden-eve-nakliyat' }
+  { input: 'Mucur’dan Kaman’a', expected: 'mucurdan-kamana' },
+  { input: '---Kırşehir Evden Eve Nakliyat---', expected: 'kirsehir-evden-eve-nakliyat' }
 ];
 
 console.log('Running Slug Generator Tests...');

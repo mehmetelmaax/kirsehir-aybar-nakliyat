@@ -20,6 +20,7 @@ export default function QuoteForm({ isInline = false }: QuoteFormProps) {
     rooms: '',
     elevator: 'evet',
     website: '', // honeypot
+    kvkkConsent: false,
   });
 
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -30,8 +31,9 @@ export default function QuoteForm({ isInline = false }: QuoteFormProps) {
   const formStartedRef = useRef(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type } = e.target as HTMLInputElement;
+    const finalValue = type === 'checkbox' ? (e.target as HTMLInputElement).checked : value;
+    setFormData((prev) => ({ ...prev, [name]: finalValue }));
     
     // Clear error
     if (errors[name]) {
@@ -292,6 +294,8 @@ export default function QuoteForm({ isInline = false }: QuoteFormProps) {
           <input
             type="checkbox"
             name="kvkkConsent"
+            checked={formData.kvkkConsent}
+            onChange={handleInputChange}
             required
             className="w-3.5 h-3.5 mt-0.5 rounded text-brand-accent focus:ring-brand-accent cursor-pointer"
           />
@@ -302,6 +306,7 @@ export default function QuoteForm({ isInline = false }: QuoteFormProps) {
             okudum, onaylıyorum. Verilerimin WhatsApp (Meta) üzerinden güvenle iletileceğini kabul ediyorum.
           </span>
         </label>
+        {errors.kvkkConsent && <span role="alert" className="text-[10px] text-rose-500 font-semibold block">{errors.kvkkConsent}</span>}
       </div>
 
       {/* Submit button */}
@@ -345,6 +350,9 @@ export default function QuoteForm({ isInline = false }: QuoteFormProps) {
       <div className="bg-brand-dark text-brand-accent rounded px-6 py-3 font-display font-black text-xl tracking-wide border border-brand-accent/20">
         20.000 TL - 25.000 TL
       </div>
+      <p className={`text-[10px] font-bold italic ${isInline ? 'text-slate-400' : 'text-brand-dark/70'}`}>
+        * Başlangıç fiyatıdır. Kesin fiyat ücretsiz ekspertiz sonrası netleşir.
+      </p>
 
       <div className="flex flex-col gap-2.5 w-full pt-4">
         {/* WhatsApp Button */}

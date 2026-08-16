@@ -91,7 +91,7 @@ export default function AkpınarPage() {
               <span>Güvenilir Akpınar Nakliye Çözümleri Nelerdir?</span>
             </h2>
             <p className="text-charcoal text-sm md:text-base leading-relaxed">
-              Akpınar bölgesinde evden eve nakliyat süreçleri titiz bir planlama gerektirir. Kırşehir Aybar Nakliyat olarak, sektörel tecrübemizle Akpınar bölgesindeki tüm ev taşıma ihtiyaçlarınıza profesyonel çözümler sunuyoruz. Taşınma gününün stresini en aza indirmek için eşyalarınızın tamamını sigortalı taşıma kapsamına alıyor, mobilyalarınızın de-montaj ve montaj işlemlerini tecrübeli marangoz ekibimizle gerçekleştiriyoruz. Sabit fiyat garantimiz sayesinde anlaştığımız taşıma bedeli taşınma gününde asla değişmez ve bütçeniz güvence altında kalır. Eşyalarınızın yol boyunca hasar görmemesi adına her taşıma öncesinde özel darbe emici Kraft ambalaj naylonları kullanıyor ve eşyaların sarsıntısız taşınması için kapalı çelik kasalı araçlarımızı sevk ediyoruz.
+              Akpınar ilçesindeki ev taşıma süreçlerinde profesyonel lojistik desteğimizle yanınızdayız. Kırşehir Aybar Nakliyat olarak Akpınar bölgesinde eşyalarınızı kapalı çelik kasa araçlarımızla güvenle transfer ediyoruz. Taşıma sırasında kırılma ve çizilmeleri önlemek adına eşyalarınızı kalın Kraft ambalaj naylonları ile paketliyoruz. Mobilyalarınızın montaj ve demontaj işlemleri bünyemizdeki uzman marangoz personel tarafından yapılır. Anlaşma sağlanan sabit fiyat güvencesiyle taşınırken, eşyalarınızın tamamını taşıma süresince geçerli olacak şekilde sigortalı taşıma kapsamına alarak koruyoruz.
             </p>
           </div>
 
@@ -99,11 +99,22 @@ export default function AkpınarPage() {
           <BuildingAnalysis districtName="Akpınar" />
           <RelatedLinks currentSlug="akpinar-evden-eve-nakliyat" type="bolge" />
 
+          {/* New Section: Akpınar'a Özgü Lojistik */}
+          <div className="bg-white p-8 rounded-xl border border-gray-light shadow-sm space-y-4">
+            <h2 className="font-display font-bold text-navy text-xl md:text-2xl flex items-center gap-2">
+              <MapPin className="w-6 h-6 text-orange" />
+              <span>Akpınar Lojistik Planlama ve Mesafe Odaklı Operasyonlar Nasıl Yürütülür?</span>
+            </h2>
+            <p className="text-charcoal text-sm md:text-base leading-relaxed">
+              Akpınar ilçesi Kırşehir il merkezine 40 kilometre uzaklıktadır. Bu mesafe, taşıma günü yolda geçecek sürenin artması nedeniyle daha erken saatlerde yola çıkmamızı gerektirmektedir. Kırşehir Aybar Nakliyat olarak Akpınar evden eve nakliyat hizmetlerinde ekiplerimizin sabahın ilk ışıklarıyla ilçeye varmasını sağlıyoruz. Böylece aynı gün içinde yükleme, nakliye ve montaj işlemlerinin yetişmesini garanti ediyoruz. Kaman, Boztepe ve Akçakent ile komşu olan Akpınar'dan en sık komşu ilçe Kaman'a veya il merkezine doğru nakliye talebi almaktayız. Kış mevsiminde 40 kilometrelik mesafenin getirdiği zorlukları aşmak için araçlarımızın zincir ve kış lastiği kontrollerini eksiksiz yapıyoruz. Uzaklık nedeniyle araç sevkiyat planında yedek araç ve malzeme desteğini önceden planlıyor, ekip sayısını işin zamanında yetişmesi için bir kişi fazla tutarak operasyonu emniyetli bir şekilde yürütüyoruz.
+            </p>
+          </div>
+
           {/* Section 2: Mahalleler */}
           <div className="bg-white p-8 rounded-xl border border-gray-light shadow-sm space-y-6">
             <h2 className="font-display font-bold text-navy text-xl md:text-2xl flex items-center gap-2">
               <MapPin className="w-6 h-6 text-orange" />
-              <span>Akpınar'de Hizmet Verdiğimiz Mahalleler Nelerdir?</span>
+              <span>Akpınar'da Hizmet Verdiğimiz Mahalleler Nelerdir?</span>
             </h2>
             <p className="text-charcoal text-sm md:text-base leading-relaxed">
               Akpınar ilçesinin dört bir yanına ayrım yapmaksızın hızlı ve güvenilir nakliye ekiplerimizi sevk ediyoruz. Her mahallede farklı sokak genişliği, apartman yapısı ve asansör kurulum açısı bulunduğundan, operasyon öncesinde detaylı yer analizi yapmaktayız. İşte bölgede yoğun olarak hizmet verdiğimiz başlıca mahalleler:

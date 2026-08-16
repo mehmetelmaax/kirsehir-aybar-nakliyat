@@ -91,13 +91,24 @@ export default function BoztepePage() {
               <span>Güvenilir Boztepe Nakliye Çözümleri Nelerdir?</span>
             </h2>
             <p className="text-charcoal text-sm md:text-base leading-relaxed">
-              Boztepe bölgesinde evden eve nakliyat süreçleri titiz bir planlama gerektirir. Kırşehir Aybar Nakliyat olarak, sektörel tecrübemizle Boztepe bölgesindeki tüm ev taşıma ihtiyaçlarınıza profesyonel çözümler sunuyoruz. Taşınma gününün stresini en aza indirmek için eşyalarınızın tamamını sigortalı taşıma kapsamına alıyor, mobilyalarınızın de-montaj ve montaj işlemlerini tecrübeli marangoz ekibimizle gerçekleştiriyoruz. Sabit fiyat garantimiz sayesinde anlaştığımız taşıma bedeli taşınma gününde asla değişmez ve bütçeniz güvence altında kalır. Eşyalarınızın yol boyunca hasar görmemesi adına her taşıma öncesinde özel darbe emici Kraft ambalaj naylonları kullanıyor ve eşyaların sarsıntısız taşınması için kapalı çelik kasalı araçlarımızı sevk ediyoruz.
+              Boztepe ilçesinde ikamet eden aileler için ev taşıma süreci titizlikle yönetilmesi gereken bir iştir. Kırşehir Aybar Nakliyat olarak, Boztepe genelinde sunduğumuz profesyonel nakliye hizmetleriyle eşyalarınızı sıfır hasar ilkesiyle taşıyoruz. Anlaşma esnasında sunduğumuz sabit fiyat garantisi ile taşıma günü ekstra bir maliyetle karşılaşmazsınız. Eşyalarınızın güvenliği adına dayanıklı Kraft ambalaj malzemeleri kullanıyor, tüm süreci kapalı kasa araçlarımızla gerçekleştiriyoruz. Ayrıca, mobilyalarınızın demontajı ve yeni evinizde montajı tecrübeli marangoz personelimiz tarafından yapılırken, tüm yükünüz taşınma boyunca sigortalı taşıma kapsamına alınıp güvence altına alınmaktadır.
             </p>
           </div>
 
           <PricingMatrix />
           <BuildingAnalysis districtName="Boztepe" />
           <RelatedLinks currentSlug="boztepe-evden-eve-nakliyat" type="bolge" />
+
+          {/* New Section: Boztepe'ye Özgü Lojistik */}
+          <div className="bg-white p-8 rounded-xl border border-gray-light shadow-sm space-y-4">
+            <h2 className="font-display font-bold text-navy text-xl md:text-2xl flex items-center gap-2">
+              <MapPin className="w-6 h-6 text-orange" />
+              <span>Boztepe Yerel Taşımacılık Süreçleri ve Planlama Detayları Nedir?</span>
+            </h2>
+            <p className="text-charcoal text-sm md:text-base leading-relaxed">
+              Boztepe ilçesi, Kırşehir il merkezine 15 kilometre gibi oldukça yakın bir konumda yer almaktadır. Bu kısa mesafe, nakliye operasyonlarında zaman yönetimi ve ekip organizasyonu açısından büyük bir operasyonel kolaylık sağlar. Kırşehir Aybar Nakliyat olarak Boztepe'deki evden eve nakliyat işlemlerinde günün erken saatlerinde yola çıkarak aynı gün içerisinde taşıma, yeni adrese yerleşme, marangozluk demontaj ve montaj işlemlerini eksiksiz tamamlama olanağına sahibiz. Komşu ilçeler olan Merkez, Mucur ve Akpınar yönlerine doğru yapılan sevkiyatlarda, yakın mesafe avantajı sayesinde araç sevkiyat planlaması hızlıca organize edilir. Kış döneminde bile 15 kilometrelik güzergahta ulaşım aksamadan sürdürülebildiği için ekiplerimiz olumsuz hava koşullarından minimum düzeyde etkilenmektedir. Boztepe'den yapılan taşınma taleplerinde genellikle il merkezine veya Mucur ilçesine doğru bir hareketlilik gözlenmekte, ekiplerimiz bu doğrultuda standart kapalı kasa araçlar ve yeterli personel sayısıyla verimli bir taşıma planı yürütmektedir.
+            </p>
+          </div>
 
           {/* Section 2: Mahalleler */}
           <div className="bg-white p-8 rounded-xl border border-gray-light shadow-sm space-y-6">

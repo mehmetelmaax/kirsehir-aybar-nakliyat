@@ -131,7 +131,7 @@ export const blogDatabase: Record<string, BlogPostData> = {
         <li><strong>Bina İçi Asansör Kullanım Cezası:</strong> Bina asansörünü kullanmak üzere anlaşıldığı halde taşınma günü site yönetiminin asansör kullanımına izin vermemesi durumunda acil olarak mobil asansör çağrılması gerekir. Bu da anlık ek maliyet demektir.</li>
         <li><strong>Standart Dışı Mobilyalar ve Ek Demontaj:</strong> Özel yapım gardıroplar, piyano, para kasası gibi ağır yüklerin taşınması standart taşınma fiyatına dahil değildir. Bu tarz eşyalarınız için önceden bilgi vermelisiniz. Detaylı bilgi için <a href="/hizmetler/piyano-ve-kasa-tasima">Piyano ve Kasa Taşıma</a> hizmetimizi inceleyebilirsiniz.</li>
         <li><strong>Yetersiz Paketleme Bilgisi:</strong> Eşyaların müşteri tarafından paketleneceği söylenip taşınma günü paketlenmemiş olması durumunda, firmanın acil malzeme ve işçilik desteği sağlaması gerekir. Bu durum ek ambalajlama ücreti doğurur.</li>
-        <li><strong>Şehir İçi İlçe Mesafeleri:</strong> Merkez'dan Boztepe'a veya Akçakent'ya yapılacak taşımalar şehir içi fiyat tarifesine tabi değildir. İlçe geçişlerindeki yakıt ve süre maliyetleri fiyata eklenir.</li>
+        <li><strong>Şehir İçi İlçe Mesafeleri:</strong> Merkez'den Boztepe'ye veya Akçakent'e yapılacak taşımalar şehir içi fiyat tarifesine tabi değildir. İlçe geçişlerindeki yakıt ve süre maliyetleri fiyata eklenir.</li>
       </ul>
 
       <h2>4. Ekstra Hizmetlerin Fiyatlandırması (Opsiyonel)</h2>
@@ -798,7 +798,7 @@ export const blogDatabase: Record<string, BlogPostData> = {
     faqs: [
       {
         question: "Kırşehir'de deprem güvenliği ve zemin açısından en sağlam semt hangisidir?",
-        answer: "Kırşehir'de zemin yapısı olarak kuzey bölgeleri (Kaman ilçesinin üst kesimleri, Çiçekdağı'ın kayaç zeminleri) Merkez'ın alüvyon tabanlı güney semtlerine göre daha sağlam kabul edilmektedir."
+        answer: "Kırşehir'de zemin yapısı olarak kuzey bölgeleri (Kaman ilçesinin üst kesimleri, Çiçekdağı'nın kayaç zeminleri) Merkez'in alüvyon tabanlı güney semtlerine göre daha sağlam kabul edilmektedir."
       },
       {
         question: "Kaman ilçesinde oturulabilecek en nezih mahalleler hangileridir?",
@@ -818,7 +818,7 @@ export const blogDatabase: Record<string, BlogPostData> = {
       }
     ],
     contentHtml: `
-      <p>Kırşehir'e iş, eğitim veya ailevi nedenlerle yeni taşınacak olan kişilerin en çok zorlandığı konulardan biri, şehrin hangi semtinde yaşamaları gerektiğine karar vermektir. Kırşehir, güneyden kuzeye doğru hızla gelişen ve her bölgesinde farklı sosyo-ekonomik ve mimari yapılar barındıran büyük bir metropoldür. Merkez'ın tarihi ve hareketli caddeleri, Kaman'nın modern rezidansları ve Çiçekdağı'ın yeni gelişen konut projekleri farklı yaşam tarzlarına hitap eder. Bu yazıda Kırşehir'in merkez ilçelerindeki semtleri, konut yapıları, deprem güvenlikleri ve sosyal yaşam imkanları açısından detaylıca inceleyerek karar vermenizi kolaylaştıracağız.</p>
+      <p>Kırşehir'e iş, eğitim veya ailevi nedenlerle yeni taşınacak olan kişilerin en çok zorlandığı konulardan biri, şehrin hangi semtinde yaşamaları gerektiğine karar vermektir. Kırşehir, güneyden kuzeye doğru hızla gelişen ve her bölgesinde farklı sosyo-ekonomik ve mimari yapılar barındıran büyük bir metropoldür. Merkez'in tarihi ve hareketli caddeleri, Kaman'ın modern rezidansları ve Çiçekdağı'nın yeni gelişen konut projekleri farklı yaşam tarzlarına hitap eder. Bu yazıda Kırşehir'in merkez ilçelerindeki semtleri, konut yapıları, deprem güvenlikleri ve sosyal yaşam imkanları açısından detaylıca inceleyerek karar vermenizi kolaylaştıracağız.</p>
 
       <h2>1. Kaman İlçesi: Yaşam Kalitesi ve Modern Konutlar</h2>
       <p>Kaman, Kırşehir'in kuzeyinde yer alan ve şehrin en yüksek yaşam standartlarına sahip olan modern yüzüdür. Genellikle geniş bulvarlar, parklar ve baraj gölü manzaralı yüksek katlı sitelerden oluşur:</p>
@@ -836,10 +836,10 @@ export const blogDatabase: Record<string, BlogPostData> = {
       </ul>
 
       <h2>3. Çiçekdağı İlçesi: Hızlı Gelişim ve Yeni Konutlar</h2>
-      <p>Çiçekdağı, son 5 yılda Kırşehir'in en hızlı büyüyen ve en çok göç alan ilçesidir. Kaman Üniversitesi, Kırşehir Alparslan Türkeş Bilim ve Teknoloji Üniversitesi ve yeni stadyum projelerinin bu bölgede yer alması, ilçeyi genç ve dinamik bir nüfusun odağı haline getirmiştir. Çiçekdağı'da konutlar genellikle yeni deprem yönetmeliklerine uygun, havuzlu ve güvenlikli modern sitelerden oluşur. Kiralar ve konut fiyatları Kaman'ya kıyasla daha uygundur. Zemin yapısı olarak tepelik ve sağlam zeminlerden oluşur. Çiçekdağı lojistik çözümlerimiz için <a href="/bolgeler/cicekdagi-evden-eve-nakliyat">Çiçekdağı Evden Eve Nakliyat</a> sayfamıza bakabilirsiniz.</p>
+      <p>Çiçekdağı, son 5 yılda Kırşehir'in en hızlı büyüyen ve en çok göç alan ilçesidir. Kaman Üniversitesi, Kırşehir Alparslan Türkeş Bilim ve Teknoloji Üniversitesi ve yeni stadyum projelerinin bu bölgede yer alması, ilçeyi genç ve dinamik bir nüfusun odağı haline getirmiştir. Çiçekdağı'nda konutlar genellikle yeni deprem yönetmeliklerine uygun, havuzlu ve güvenlikli modern sitelerden oluşur. Kiralar ve konut fiyatları Kaman'a kıyasla daha uygundur. Zemin yapısı olarak tepelik ve sağlam zeminlerden oluşur. Çiçekdağı lojistik çözümlerimiz için <a href="/bolgeler/cicekdagi-evden-eve-nakliyat">Çiçekdağı Evden Eve Nakliyat</a> sayfamıza bakabilirsiniz.</p>
 
       <h2>4. Mucur İlçesi: Sanayileşme ve Gelişen Konutlar</h2>
-      <p>Mucur, Merkez Nehri'nin doğusunda yer alan, sanayi siteleri, büyük hastaneler ve Kırşehir Optimum AVM gibi büyük ticaret merkezlerini barındıran dinamik bir ilçedir. Sinanpaşa ve Yavuzlar gibi nehir kıyısındaki mahallelerde büyük kentsel dönüşüm projeleri devam etmektedir. Mucur bölgesinde yeni yapılan siteler, Kaman'ya kıyasla daha ekonomik konut seçenekleri sunmaktadır. Bu ilçedeki nakliye süreçlerimiz için <a href="/bolgeler/mucur-evden-eve-nakliyat">Mucur Evden Eve Nakliyat</a> sayfamızı inceleyebilirsiniz.</p>
+      <p>Mucur, Merkez Nehri'nin doğusunda yer alan, sanayi siteleri, büyük hastaneler ve Kırşehir Optimum AVM gibi büyük ticaret merkezlerini barındıran dinamik bir ilçedir. Sinanpaşa ve Yavuzlar gibi nehir kıyısındaki mahallelerde büyük kentsel dönüşüm projeleri devam etmektedir. Mucur bölgesinde yeni yapılan siteler, Kaman'a kıyasla daha ekonomik konut seçenekleri sunmaktadır. Bu ilçedeki nakliye süreçlerimiz için <a href="/bolgeler/mucur-evden-eve-nakliyat">Mucur Evden Eve Nakliyat</a> sayfamızı inceleyebilirsiniz.</p>
 
       <h2>5. Okul Olanakları ve Çocuklu Aileler İçin En İyi Bölgeler</h2>
       <p>Çocuklu aileler için okul ve kreş olanakları semt seçiminde ilk sırada gelir. Kırşehir'in en iyi kolejleri ve devlet okulları Kaman ilçesinde yoğunlaşmıştır. Güzelyalı, Beyazevler ve Yenice mahalleleri çocukların okula yürüme mesafesinde güvenle gidip gelebileceği sakin çevre koşullarına sahiptir.</p>

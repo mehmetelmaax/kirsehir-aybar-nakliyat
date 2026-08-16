@@ -133,7 +133,7 @@ function runCannibalizationCheck() {
         const matchesB = patterns.some(p => normTitleB.includes(p) || normH1B.includes(p));
 
         if (matchesA && matchesB) {
-          // Special exception: rotalar vs hizmetler is allowed (e.g. adana-istanbul-evden-eve-nakliyat contains sehirlerarasi but it is sub-route)
+          // Special exception: rotalar vs hizmetler is allowed (e.g. kirsehir-istanbul-evden-eve-nakliyat contains sehirlerarasi but it is sub-route)
           // Also bolgeler is allowed to contain "evden eve nakliyat" as long as they don't share the same specific district name or service name
           const isRotaA = pageA.route.startsWith('/rotalar/');
           const isRotaB = pageB.route.startsWith('/rotalar/');

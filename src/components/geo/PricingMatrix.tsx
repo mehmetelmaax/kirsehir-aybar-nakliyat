@@ -5,10 +5,10 @@ export default function PricingMatrix() {
   return (
     <div className="bg-white p-8 rounded-xl border border-gray-light shadow-sm space-y-6 overflow-hidden text-charcoal">
       <h2 className="font-display font-bold text-navy text-xl md:text-2xl border-b border-gray-light pb-3">
-        Kırşehir Ev Taşıma Oda, Mesafe ve Kat Fiyat Matrisi
+        Kırşehir Ev Taşıma Başlangıç Fiyat Matrisi
       </h2>
       <p className="text-xs md:text-sm text-charcoal leading-relaxed">
-        Kırşehir genelindeki evden eve nakliyat operasyonlarında tahmini maliyet aralıkları daire büyüklüğüne (oda sayısına), gidilecek yol mesafesine ve kat yüksekliklerine göre belirlenmektedir. Aşağıda, Kırşehir Aybar Nakliyat tarafından sunulan 2026 yılı güncel lojistik fiyat aralıkları listelenmiştir:
+        Kırşehir genelindeki evden eve nakliyat operasyonlarında tahmini maliyet aralıkları daire büyüklüğüne (oda sayısına), gidilecek yol mesafesine ve kat yüksekliklerine göre belirlenmektedir. <strong>Aşağıda listelenen fiyatlar tahmini başlangıç fiyatlarıdır; net ve kesin fiyat ücretsiz ekspertiz sonrasında belirlenmektedir:</strong>
       </p>
       
       <div className="overflow-x-auto">
@@ -52,7 +52,7 @@ export default function PricingMatrix() {
       </div>
       
       <p className="text-[10px] text-charcoal/70 italic border-l-2 border-orange pl-3">
-        * Tablodaki fiyatlar normal eşya yoğunluğuna sahip binalardaki asansör kurulumlarını kapsamaktadır. Giriş kat veya 1. kat taşımalarında asansör kurulmadığı için fiyatlar daha düşük seviyede uygulanır.
+        * Tablodaki fiyatlar normal eşya yoğunluğuna sahip binalardaki asansör kurulumlarını kapsayan tahmini başlangıç rakamlarıdır. Net ve kesin taşıma teklifiniz, eşya yoğunluğu ve kat yüksekliğine göre ücretsiz ekspertiz sonrasında verilecektir.
       </p>
     </div>
   );

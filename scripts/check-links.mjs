@@ -5,7 +5,10 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const appBuildDir = path.join(__dirname, '..', '.next', 'server', 'app');
-const siteCanonicalDomain = 'https://adanaevdeneveasansorlunakliyat.com.tr';
+const siteConfigPath = path.join(__dirname, '..', 'src', 'lib', 'site-config.ts');
+const siteConfigContent = fs.readFileSync(siteConfigPath, 'utf8');
+const urlMatch = siteConfigContent.match(/url:\s*'([^']+)'/);
+const siteCanonicalDomain = urlMatch ? urlMatch[1] : 'https://kirsehiraybarnakliyat.com.tr';
 
 function getHtmlFiles(dir, files = []) {
   if (!fs.existsSync(dir)) return files;
@@ -26,6 +29,10 @@ function getHtmlFiles(dir, files = []) {
 
 function runLinksCheck() {
   const htmlFiles = getHtmlFiles(appBuildDir);
+  if (htmlFiles.length === 0) {
+    console.error('Error: No HTML files found to scan! Build output might be missing.');
+    process.exit(1);
+  }
   console.log(`--- INTERNAL LINKS INTEGRITY AUDIT ---`);
   console.log(`Scanning links in ${htmlFiles.length} pages...\n`);
 
