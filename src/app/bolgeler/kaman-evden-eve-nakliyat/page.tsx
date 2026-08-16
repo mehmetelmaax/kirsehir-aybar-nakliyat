@@ -6,6 +6,7 @@ import Breadcrumb from '@/components/Breadcrumb';
 import RelatedLinks from '@/components/RelatedLinks';
 import JsonLd from '@/components/JsonLd';
 import { serviceSchema, faqSchema } from '@/lib/schema';
+import { DISTRICTS } from '@/lib/site-config';
 
 import React from 'react';
 import type { Metadata } from 'next';
@@ -21,14 +22,18 @@ export const metadata: Metadata = {
 };
 
 export default function KamanPage() {
+  const kamanKm = DISTRICTS.find(d => d.name === 'Kaman')?.distanceKm ?? 55;
+
   const sss = [
     {
       question: "Kaman TOKİ konutlarında kaçıncı kata kadar asansör kurabiliyorsunuz?",
+      // DOĞRULA: Kaman "TOKİ konutları ve yüksek katlı binalar"
+      // DOĞRULA: Kaman FAQ'daki kaçıncı kata kadar asansör kurulduğu bilgisi
       answer: "Kaman ilçesindeki TOKİ ve diğer yüksek katlı konutlarda, 25. kata kadar güvenle uzanabilen dış cephe asansörlerimizle hasarsız taşıma sağlıyoruz."
     },
     {
       question: "Kaman içi ev taşıma işlemleri ne kadar sürer?",
-      answer: "Kaman ilçe sınırları içerisindeki ev taşıma işlemleri ortalama olarak 5 ile 7 saat arasında tamamlanarak aynı gün anahtar teslim olarak sonuçlanır."
+      answer: "Kaman ilçe sınırları içerisindeki ev taşıma işlemleri eşya yoğunluğuna ve kat durumuna göre değişmekle birlikte genellikle aynı gün içinde tamamlanarak anahtar teslim olarak sonuçlanır."
     }
   ];
 
@@ -65,6 +70,7 @@ export default function KamanPage() {
             Kaman Evden Eve Nakliyat
           </h1>
           <p className="text-gray-300 text-sm md:text-base max-w-2xl mx-auto leading-relaxed px-4">
+            {/* DOĞRULA: Kaman "TOKİ konutları ve yüksek katlı binalar" */}
             Kaman ilçesi genel olarak 2-5 katlı müstakil ve az katlı apartmanlardan oluşmaktadır. Yeni TOKİ konutları ve yüksek katlı binalarda asansörlü nakliye araçlarımızla hasarsız taşıma desteği vermekteyiz. Kaman ceviz bahçeleri ve tarım alanları arasında kalan müstakil evlerin taşınmasında geniş araç filomuzla hizmet sunuyoruz.
           </p>
         </section>
@@ -131,7 +137,8 @@ export default function KamanPage() {
               <span>Kaman Bina Yapısı ve Asansör İhtiyacı Nedir?</span>
             </h2>
             <p className="text-charcoal text-sm md:text-base leading-relaxed">
-              Kaman ilçesi genel olarak az katlı yerleşim yerlerinden ve müstakil evlerden oluşsa da, son yıllarda yeni TOKİ konutları ve modern binalarla yüksek katlı mimari de gelişmektedir. Kaman'ın geniş sokak yapısı, nakliye kamyonlarımızın binalara kolayca yanaşmasını ve mobil asansör sisteminin en ideal açıyla kurulmasını sağlar. Asansörlü nakliye sayesinde eşyalarınız dar apartman merdivenlerinde taşınırken oluşabilecek darbe ve çizilmelere karşı %100 korunmuş olur.
+              {/* DOĞRULA: Kaman "TOKİ konutları ve yüksek katlı binalar" */}
+              Kaman ilçesi genel olarak az katlı yerleşim yerlerinden ve müstakil evlerden oluşsa da, son yıllarda yeni TOKİ konutları ve modern binalarla yüksek katlı mimari de gelişmektedir. Kaman'ın geniş sokak yapısı, nakliye kamyonlarımızın binalara kolayca yanaşmasını ve mobil asansör sisteminin en ideal açıyla kurulmasını sağlar. Asansörlü nakliye sayesinde eşyalarınız dar apartman merdivenlerinde taşınırken oluşabilecek darbe ve çizilmelere karşı en yüksek seviyede korunmuş olur.
             </p>
           </div>
 
@@ -215,7 +222,7 @@ export default function KamanPage() {
                   
                   <tr className="hover:bg-off-white/50">
                     <td className="p-3 font-semibold">Kaman - Kırşehir Merkez Nakliyat</td>
-                    <td className="p-3">55 km</td>
+                    <td className="p-3">{kamanKm} km</td>
                     <td className="p-3">
                       <Link href="/bolgeler/kirsehir-merkez-evden-eve-nakliyat" className="text-orange-text font-bold hover:underline">
                         Kırşehir Merkez Evden Eve Nakliyat Hizmetleri

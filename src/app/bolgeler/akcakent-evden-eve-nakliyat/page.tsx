@@ -6,6 +6,7 @@ import Breadcrumb from '@/components/Breadcrumb';
 import RelatedLinks from '@/components/RelatedLinks';
 import JsonLd from '@/components/JsonLd';
 import { serviceSchema, faqSchema } from '@/lib/schema';
+import { DISTRICTS } from '@/lib/site-config';
 
 import React from 'react';
 import type { Metadata } from 'next';
@@ -24,15 +25,19 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AkçakentPage() {
+export default function AkcakentPage() {
+  const akcakentKm = DISTRICTS.find(d => d.name === 'Akçakent')?.distanceKm ?? 70;
+
   const sss = [
     {
       question: "Akçakent nakliyatında coğrafi şartlar taşımayı zorlaştırıyor mu?",
-      answer: "Engebeli arazi yapısına karşın, deneyimli şoförlerimiz ve bakımlı araç filomuz sayesinde Akçakent taşımalarını hiçbir gecikme ve hasar olmaksızın tamamlıyoruz."
+      // DOĞRULA: Akçakent / Çiçekdağı "engebeli yol koşulları"
+      answer: "Engebeli arazi yapısına karşın, deneyimli şoförlerimiz, geniş sigortalı taşıma güvencemiz ve hasar önleme tedbirlerimizle Akçakent taşımalarını güvenle tamamlıyoruz."
     },
     {
       question: "Zorlu kış aylarında Akçakent'e nakliye hizmeti var mı?",
-      answer: "Evet. Kış lastikleri, zincir donanımları ve tecrübeli kadromuzla yılın 365 günü hava şartları ne olursa olsun kesintisiz hizmet vermekteyiz."
+      // DOĞRULA: Kış lastiği / zincir donanımı iddiaları (araç filosunda gerçekten var mı)
+      answer: "Evet. Kış lastikleri ve zincir donanımlı araçlarımızla, hava koşullarına bağlı önlemleri önceden alarak planlı bir şekilde hizmet vermekteyiz."
     }
   ];
 
@@ -69,6 +74,8 @@ export default function AkçakentPage() {
             Akçakent Evden Eve Nakliyat
           </h1>
           <p className="text-gray-300 text-sm md:text-base max-w-2xl mx-auto leading-relaxed px-4">
+            {/* DOĞRULA: Akçakent "dağlık ve ormanlık arazi koşulları" */}
+            {/* DOĞRULA: Kış lastiği / zincir donanımı iddiaları (araç filosunda gerçekten var mı) */}
             Akçakent, Kırşehir'in en küçük ilçelerinden biri olup dağlık ve ormanlık arazi koşullarına sahiptir. Zorlu kış şartlarında zincirli ve kış lastikli araçlarımızla taşıma yapmaktayız. K3 yetki belgeli filomuzla en zorlu coğrafyalarda dahi güvenli nakliyat sağlıyoruz.
           </p>
         </section>
@@ -135,6 +142,7 @@ export default function AkçakentPage() {
               <span>Akçakent Bina Yapısı ve Asansör İhtiyacı Nedir?</span>
             </h2>
             <p className="text-charcoal text-sm md:text-base leading-relaxed">
+              {/* DOĞRULA: Akçakent "engebeli yol koşulları" */}
               Akçakent ilçesi engebeli ve dağlık arazi yapısına sahip olup, konutlar genellikle müstakil ahşap veya betonarme köy evleridir. Dar ve yokuşlu sokaklarda büyük nakliye tırları yerine daha kıvrak orta boy nakliye kamyonlarımızı tercih etmekteyiz. Bu sayede binalara en yakın noktaya kadar erişim sağlayarak eşya taşıma mesafesini minimumda tutuyoruz.
             </p>
           </div>
@@ -218,6 +226,15 @@ export default function AkçakentPage() {
                 <tbody className="divide-y divide-gray-light text-charcoal">
                   
                   <tr className="hover:bg-off-white/50">
+                    <td className="p-3 font-semibold">Akçakent - Kırşehir Merkez Nakliyat</td>
+                    <td className="p-3">{akcakentKm} km</td>
+                    <td className="p-3">
+                      <Link href="/bolgeler/kirsehir-merkez-evden-eve-nakliyat" className="text-orange-text font-bold hover:underline">
+                        Kırşehir Merkez Evden Eve Nakliyat Hizmetleri
+                      </Link>
+                    </td>
+                  </tr>
+                  <tr className="hover:bg-off-white/50">
                     <td className="p-3 font-semibold">Akçakent - Akpınar Nakliyat</td>
                     <td className="p-3">45 km</td>
                     <td className="p-3">
@@ -228,7 +245,7 @@ export default function AkçakentPage() {
                   </tr>
                   <tr className="hover:bg-off-white/50">
                     <td className="p-3 font-semibold">Akçakent - Çiçekdağı Nakliyat</td>
-                    <td className="p-3">35 km</td>
+                    <td className="p-3">40 km</td>
                     <td className="p-3">
                       <Link href="/bolgeler/cicekdagi-evden-eve-nakliyat" className="text-orange-text font-bold hover:underline">
                         Çiçekdağı Evden Eve Nakliyat Hizmetleri

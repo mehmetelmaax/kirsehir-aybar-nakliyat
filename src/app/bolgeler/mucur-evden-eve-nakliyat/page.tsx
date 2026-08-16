@@ -6,6 +6,7 @@ import Breadcrumb from '@/components/Breadcrumb';
 import RelatedLinks from '@/components/RelatedLinks';
 import JsonLd from '@/components/JsonLd';
 import { serviceSchema, faqSchema } from '@/lib/schema';
+import { DISTRICTS } from '@/lib/site-config';
 
 import React from 'react';
 import type { Metadata } from 'next';
@@ -21,10 +22,12 @@ export const metadata: Metadata = {
 };
 
 export default function MucurPage() {
+  const mucurKm = DISTRICTS.find(d => d.name === 'Mucur')?.distanceKm ?? 20;
+
   const sss = [
     {
       question: "Mucur - Kırşehir Merkez arası nakliye kaç saat sürer?",
-      answer: "Mucur ile Kırşehir Merkez arasındaki mesafe yaklaşık 22 km olup, yükleme ve boşaltma dahil tüm taşıma süreci ortalama 6 saatte tamamlanmaktadır."
+      answer: `Mucur ile Kırşehir Merkez arasındaki mesafe yaklaşık ${mucurKm} km olup, yükleme ve boşaltma dahil tüm taşıma süreci eşya yoğunluğuna ve kat seviyelerine göre değişmekle birlikte genellikle aynı gün içerisinde tamamlanmaktadır.`
     },
     {
       question: "Mucur'da asansör kurulamayan dar sokaklar var mı?",
@@ -215,7 +218,7 @@ export default function MucurPage() {
                   
                   <tr className="hover:bg-off-white/50">
                     <td className="p-3 font-semibold">Mucur - Kırşehir Merkez Nakliyat</td>
-                    <td className="p-3">22 km</td>
+                    <td className="p-3">{mucurKm} km</td>
                     <td className="p-3">
                       <Link href="/bolgeler/kirsehir-merkez-evden-eve-nakliyat" className="text-orange-text font-bold hover:underline">
                         Kırşehir Merkez Evden Eve Nakliyat Hizmetleri

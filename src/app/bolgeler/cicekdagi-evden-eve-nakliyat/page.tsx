@@ -6,6 +6,7 @@ import Breadcrumb from '@/components/Breadcrumb';
 import RelatedLinks from '@/components/RelatedLinks';
 import JsonLd from '@/components/JsonLd';
 import { serviceSchema, faqSchema } from '@/lib/schema';
+import { DISTRICTS } from '@/lib/site-config';
 
 import React from 'react';
 import type { Metadata } from 'next';
@@ -20,10 +21,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ÇiçekdağıPage() {
+export default function CicekdagiPage() {
+  const cicekdagiKm = DISTRICTS.find(d => d.name === 'Çiçekdağı')?.distanceKm ?? 65;
+
   const sss = [
     {
       question: "Çiçekdağı nakliyat hizmetinde yol sarsıntılarına karşı ne yapılıyor?",
+      // DOĞRULA: Akçakent / Çiçekdağı "engebeli yol koşulları"
       answer: "Çiçekdağı güzergahındaki engebeli yollar dikkate alınarak, tüm eşyalarınız kamyon içerisinde özel sabitleme ipleriyle (spanset) sabitlenir ve kalın Kraft ambalajlarla sarılır."
     },
     {
@@ -65,6 +69,7 @@ export default function ÇiçekdağıPage() {
             Çiçekdağı Evden Eve Nakliyat
           </h1>
           <p className="text-gray-300 text-sm md:text-base max-w-2xl mx-auto leading-relaxed px-4">
+            {/* DOĞRULA: Akçakent / Çiçekdağı "engebeli yol koşulları" */}
             Çiçekdağı ilçesi engebeli yol koşullarına sahip olup, taşıma araçlarımızın sarsıntısız intikali için sabitleme sistemleri kurmaktayız. Çiçekdağı ile Kırşehir ve çevre iller arasındaki taşınma taleplerinizi K3 yetki belgeli kamyon filomuzla güvenle karşılıyoruz.
           </p>
         </section>
@@ -102,7 +107,9 @@ export default function ÇiçekdağıPage() {
               <span>Çiçekdağı Taşımacılık Operasyonlarında Yol ve Süre Yönetimi Nasıl Sağlanır?</span>
             </h2>
             <p className="text-charcoal text-sm md:text-base leading-relaxed">
-              Çiçekdağı ilçesi Kırşehir merkezine 65 kilometre uzaklıktadır. Bu uzaklık, ekiplerimizin taşıma gününde çok erken saatte çıkış yapmasını zorunlu kılmaktadır. Kırşehir Aybar Nakliyat olarak, Çiçekdağı evden eve nakliyat operasyonlarında sabah erken saatte adrese ulaşıp yüklemeye başlıyoruz. Komşu ilçeleri Akçakent ve Kaman olan Çiçekdağı'nda en sık gerçekleştirilen nakliye yönü il merkezidir. Kış aylarında 65 kilometrelik bu uzak mesafedeki hava ve yol durumunu yakından takip ederek, araçlarımızın kar ve buzlanmaya karşı tam teçhizatlı olmasını sağlıyoruz. Uzaklığın taşıma süresine etkisi nedeniyle, taşıma gününde herhangi bir aksama yaşanmaması adına araç sevkiyat planlamamızı günler öncesinden netleştiriyoruz. Ayrıca, ilçedeki taşıma süreçlerinde görevlendirdiğimiz personel sayısını artırarak işin aynı gün içerisinde sorunsuzca tamamlanmasını hedefliyoruz.
+              Çiçekdağı ilçesi Kırşehir merkezine 65 kilometre uzaklıktadır. Bu uzaklık, ekiplerimizin taşıma gününde çok erken saatte çıkış yapmasını zorunlu kılmaktadır. Kırşehir Aybar Nakliyat olarak, Çiçekdağı evden eve nakliyat operasyonlarında sabah erken saatte adrese ulaşıp yüklemeye başlıyoruz. Komşu ilçeleri Akçakent ve Kaman olan Çiçekdağı'nda en sık gerçekleştirilen nakliye yönü il merkezidir.
+              {/* DOĞRULA: Kış lastiği / zincir donanımı iddiaları (araç filosunda gerçekten var mı) */}
+              Kış aylarında 65 kilometrelik bu uzak mesafedeki hava ve yol durumunu yakından takip ederek, araçlarımızın kar ve buzlanmaya karşı tam teçhizatlı olmasını sağlıyoruz. Uzaklığın taşıma süresine etkisi nedeniyle, taşıma gününde herhangi bir aksama yaşanmaması adına araç sevkiyat planlamamızı günler öncesinden netleştiriyoruz. Ayrıca, ilçedeki taşıma süreçlerinde görevlendirdiğimiz personel sayısını artırarak işin aynı gün içerisinde sorunsuzca tamamlanmasını hedefliyoruz.
             </p>
           </div>
 
@@ -131,6 +138,7 @@ export default function ÇiçekdağıPage() {
               <span>Çiçekdağı Bina Yapısı ve Asansör İhtiyacı Nedir?</span>
             </h2>
             <p className="text-charcoal text-sm md:text-base leading-relaxed">
+              {/* DOĞRULA: Akçakent / Çiçekdağı "engebeli yol koşulları" */}
               Çiçekdağı ilçesinin konut mimarisi ağırlıklı olarak müstakil evler ve az katlı apartmanlardan oluşmaktadır. Engebeli arazi yapısı nedeniyle taşıma kamyonlarımızın yanaşma açıları uzman şoförlerimiz tarafından titizlikle ayarlanır. Asansör kurulabilen binalarda dış cephe asansörü kullanılarak eşyaların sarsıntısız indirilmesi sağlanır.
             </p>
           </div>
@@ -214,20 +222,20 @@ export default function ÇiçekdağıPage() {
                 <tbody className="divide-y divide-gray-light text-charcoal">
                   
                   <tr className="hover:bg-off-white/50">
-                    <td className="p-3 font-semibold">Çiçekdağı - Akçakent Nakliyat</td>
-                    <td className="p-3">35 km</td>
+                    <td className="p-3 font-semibold">Çiçekdağı - Kırşehir Merkez Nakliyat</td>
+                    <td className="p-3">{cicekdagiKm} km</td>
                     <td className="p-3">
-                      <Link href="/bolgeler/akcakent-evden-eve-nakliyat" className="text-orange-text font-bold hover:underline">
-                        Akçakent Evden Eve Nakliyat Hizmetleri
+                      <Link href="/bolgeler/kirsehir-merkez-evden-eve-nakliyat" className="text-orange-text font-bold hover:underline">
+                        Kırşehir Merkez Evden Eve Nakliyat Hizmetleri
                       </Link>
                     </td>
                   </tr>
                   <tr className="hover:bg-off-white/50">
-                    <td className="p-3 font-semibold">Çiçekdağı - Kırşehir Merkez Nakliyat</td>
-                    <td className="p-3">70 km</td>
+                    <td className="p-3 font-semibold">Çiçekdağı - Akçakent Nakliyat</td>
+                    <td className="p-3">40 km</td>
                     <td className="p-3">
-                      <Link href="/bolgeler/kirsehir-merkez-evden-eve-nakliyat" className="text-orange-text font-bold hover:underline">
-                        Kırşehir Merkez Evden Eve Nakliyat Hizmetleri
+                      <Link href="/bolgeler/akcakent-evden-eve-nakliyat" className="text-orange-text font-bold hover:underline">
+                        Akçakent Evden Eve Nakliyat Hizmetleri
                       </Link>
                     </td>
                   </tr>

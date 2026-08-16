@@ -6,6 +6,7 @@ import Breadcrumb from '@/components/Breadcrumb';
 import RelatedLinks from '@/components/RelatedLinks';
 import JsonLd from '@/components/JsonLd';
 import { serviceSchema, faqSchema } from '@/lib/schema';
+import { DISTRICTS } from '@/lib/site-config';
 
 import React from 'react';
 import type { Metadata } from 'next';
@@ -24,7 +25,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AkpınarPage() {
+export default function AkpinarPage() {
+  const akpinarKm = DISTRICTS.find(d => d.name === 'Akpınar')?.distanceKm ?? 40;
+  const akpinarToBoztepeKm = 45; // Akpınar ile Boztepe arası yol mesafesi
+
   const sss = [
     {
       question: "Akpınar nakliyat operasyonlarında marangoz desteği var mı?",
@@ -32,7 +36,8 @@ export default function AkpınarPage() {
     },
     {
       question: "Akpınar'dan Ankara'ya taşınma kaç saat sürer?",
-      answer: "Akpınar, Ankara yol güzergahında olduğu için intikal süresi oldukça kısadır. Ortalama 5-6 saat içerisinde tüm taşınma tamamlanmaktadır."
+      // DOĞRULA: Akpınar "Ankara yol güzergahında" ifadesi
+      answer: "Akpınar, Ankara yol güzergahında olduğu için intikal süresi oldukça kısadır. Eşya yoğunluğuna ve bina kat seviyelerine bağlı olarak taşıma işlemi genellikle gün içerisinde tamamlanmaktadır."
     }
   ];
 
@@ -69,6 +74,7 @@ export default function AkpınarPage() {
             Akpınar Evden Eve Nakliyat
           </h1>
           <p className="text-gray-300 text-sm md:text-base max-w-2xl mx-auto leading-relaxed px-4">
+            {/* DOĞRULA: Akpınar "Ankara yol güzergahında" ifadesi */}
             Akpınar ilçesi, az katlı yerleşim yerlerinden oluşmakta olup geniş sokakları sayesinde taşıma kamyonlarımızın binalara yanaşması oldukça kolaydır. Kırşehir - Ankara yolu üzerinde yer alan Akpınar'da hızlı ve pratik ev taşıma süreçleri yürütmekteyiz.
           </p>
         </section>
@@ -106,7 +112,9 @@ export default function AkpınarPage() {
               <span>Akpınar Lojistik Planlama ve Mesafe Odaklı Operasyonlar Nasıl Yürütülür?</span>
             </h2>
             <p className="text-charcoal text-sm md:text-base leading-relaxed">
-              Akpınar ilçesi Kırşehir il merkezine 40 kilometre uzaklıktadır. Bu mesafe, taşıma günü yolda geçecek sürenin artması nedeniyle daha erken saatlerde yola çıkmamızı gerektirmektedir. Kırşehir Aybar Nakliyat olarak Akpınar evden eve nakliyat hizmetlerinde ekiplerimizin sabahın ilk ışıklarıyla ilçeye varmasını sağlıyoruz. Böylece aynı gün içinde yükleme, nakliye ve montaj işlemlerinin yetişmesini garanti ediyoruz. Kaman, Boztepe ve Akçakent ile komşu olan Akpınar'dan en sık komşu ilçe Kaman'a veya il merkezine doğru nakliye talebi almaktayız. Kış mevsiminde 40 kilometrelik mesafenin getirdiği zorlukları aşmak için araçlarımızın zincir ve kış lastiği kontrollerini eksiksiz yapıyoruz. Uzaklık nedeniyle araç sevkiyat planında yedek araç ve malzeme desteğini önceden planlıyor, ekip sayısını işin zamanında yetişmesi için bir kişi fazla tutarak operasyonu emniyetli bir şekilde yürütüyoruz.
+              Akpınar ilçesi Kırşehir il merkezine 40 kilometre uzaklıktadır. Bu mesafe, taşıma günü yolda geçecek sürenin artması nedeniyle daha erken saatlerde yola çıkmamızı gerektirmektedir. Kırşehir Aybar Nakliyat olarak Akpınar evden eve nakliyat hizmetlerinde ekiplerimizin sabahın ilk ışıklarıyla ilçeye varmasını sağlıyoruz. Böylece aynı gün içinde yükleme, nakliye ve montaj işlemlerinin yetişmesi için erken hareket planı uyguluyoruz. Kaman, Boztepe ve Akçakent ile komşu olan Akpınar'dan en sık komşu ilçe Kaman'a veya il merkezine doğru nakliye talebi almaktayız.
+              {/* DOĞRULA: Kış lastiği / zincir donanımı iddiaları (araç filosunda gerçekten var mı) */}
+              Kış mevsiminde 40 kilometrelik mesafenin getirdiği zorlukları aşmak için araçlarımızın zincir ve kış lastiği kontrollerini eksiksiz yapıyoruz. Uzaklık nedeniyle araç sevkiyat planında yedek araç ve malzeme desteğini önceden planlıyor, ekip sayısını işin zamanında yetişmesi için bir kişi fazla tutarak operasyonu emniyetli bir şekilde yürütüyoruz.
             </p>
           </div>
 
@@ -218,6 +226,15 @@ export default function AkpınarPage() {
                 <tbody className="divide-y divide-gray-light text-charcoal">
                   
                   <tr className="hover:bg-off-white/50">
+                    <td className="p-3 font-semibold">Akpınar - Kırşehir Merkez Nakliyat</td>
+                    <td className="p-3">{akpinarKm} km</td>
+                    <td className="p-3">
+                      <Link href="/bolgeler/kirsehir-merkez-evden-eve-nakliyat" className="text-orange-text font-bold hover:underline">
+                        Kırşehir Merkez Evden Eve Nakliyat Hizmetleri
+                      </Link>
+                    </td>
+                  </tr>
+                  <tr className="hover:bg-off-white/50">
                     <td className="p-3 font-semibold">Akpınar - Kaman Nakliyat</td>
                     <td className="p-3">35 km</td>
                     <td className="p-3">
@@ -228,7 +245,7 @@ export default function AkpınarPage() {
                   </tr>
                   <tr className="hover:bg-off-white/50">
                     <td className="p-3 font-semibold">Akpınar - Boztepe Nakliyat</td>
-                    <td className="p-3">32 km</td>
+                    <td className="p-3">{akpinarToBoztepeKm} km</td>
                     <td className="p-3">
                       <Link href="/bolgeler/boztepe-evden-eve-nakliyat" className="text-orange-text font-bold hover:underline">
                         Boztepe Evden Eve Nakliyat Hizmetleri

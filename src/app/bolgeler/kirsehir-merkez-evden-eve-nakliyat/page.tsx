@@ -6,6 +6,7 @@ import Breadcrumb from '@/components/Breadcrumb';
 import RelatedLinks from '@/components/RelatedLinks';
 import JsonLd from '@/components/JsonLd';
 import { serviceSchema, faqSchema } from '@/lib/schema';
+import { DISTRICTS } from '@/lib/site-config';
 
 import React from 'react';
 import type { Metadata } from 'next';
@@ -20,7 +21,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default function KırşehirMerkezPage() {
+export default function KirsehirMerkezPage() {
+  const kamanKm = DISTRICTS.find(d => d.name === 'Kaman')?.distanceKm ?? 55;
+  const mucurKm = DISTRICTS.find(d => d.name === 'Mucur')?.distanceKm ?? 20;
+  const boztepeKm = DISTRICTS.find(d => d.name === 'Boztepe')?.distanceKm ?? 15;
+
   const sss = [
     {
       question: "Ahi Evran Mahallesi'ndeki dar sokaklarda eşya asansörü kurulabilir mi?",
@@ -219,7 +224,7 @@ export default function KırşehirMerkezPage() {
                   
                   <tr className="hover:bg-off-white/50">
                     <td className="p-3 font-semibold">Kırşehir Merkez - Kaman Nakliyat</td>
-                    <td className="p-3">55 km</td>
+                    <td className="p-3">{kamanKm} km</td>
                     <td className="p-3">
                       <Link href="/bolgeler/kaman-evden-eve-nakliyat" className="text-orange-text font-bold hover:underline">
                         Kaman Evden Eve Nakliyat Hizmetleri
@@ -228,7 +233,7 @@ export default function KırşehirMerkezPage() {
                   </tr>
                   <tr className="hover:bg-off-white/50">
                     <td className="p-3 font-semibold">Kırşehir Merkez - Mucur Nakliyat</td>
-                    <td className="p-3">22 km</td>
+                    <td className="p-3">{mucurKm} km</td>
                     <td className="p-3">
                       <Link href="/bolgeler/mucur-evden-eve-nakliyat" className="text-orange-text font-bold hover:underline">
                         Mucur Evden Eve Nakliyat Hizmetleri
@@ -237,7 +242,7 @@ export default function KırşehirMerkezPage() {
                   </tr>
                   <tr className="hover:bg-off-white/50">
                     <td className="p-3 font-semibold">Kırşehir Merkez - Boztepe Nakliyat</td>
-                    <td className="p-3">30 km</td>
+                    <td className="p-3">{boztepeKm} km</td>
                     <td className="p-3">
                       <Link href="/bolgeler/boztepe-evden-eve-nakliyat" className="text-orange-text font-bold hover:underline">
                         Boztepe Evden Eve Nakliyat Hizmetleri

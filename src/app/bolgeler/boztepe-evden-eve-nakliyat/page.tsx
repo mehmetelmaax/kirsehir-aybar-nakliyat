@@ -6,6 +6,7 @@ import Breadcrumb from '@/components/Breadcrumb';
 import RelatedLinks from '@/components/RelatedLinks';
 import JsonLd from '@/components/JsonLd';
 import { serviceSchema, faqSchema } from '@/lib/schema';
+import { DISTRICTS } from '@/lib/site-config';
 
 import React from 'react';
 import type { Metadata } from 'next';
@@ -25,6 +26,9 @@ export const metadata: Metadata = {
 };
 
 export default function BoztepePage() {
+  const boztepeKm = DISTRICTS.find(d => d.name === 'Boztepe')?.distanceKm ?? 15;
+  const boztepeToAkpinarKm = 45; // Boztepe ile Akpınar arası yol mesafesi
+
   const sss = [
     {
       question: "Boztepe ilçesinde köy ve kasabalara da hizmet veriyor musunuz?",
@@ -219,7 +223,7 @@ export default function BoztepePage() {
                   
                   <tr className="hover:bg-off-white/50">
                     <td className="p-3 font-semibold">Boztepe - Kırşehir Merkez Nakliyat</td>
-                    <td className="p-3">30 km</td>
+                    <td className="p-3">{boztepeKm} km</td>
                     <td className="p-3">
                       <Link href="/bolgeler/kirsehir-merkez-evden-eve-nakliyat" className="text-orange-text font-bold hover:underline">
                         Kırşehir Merkez Evden Eve Nakliyat Hizmetleri
@@ -228,7 +232,7 @@ export default function BoztepePage() {
                   </tr>
                   <tr className="hover:bg-off-white/50">
                     <td className="p-3 font-semibold">Boztepe - Akpınar Nakliyat</td>
-                    <td className="p-3">32 km</td>
+                    <td className="p-3">{boztepeToAkpinarKm} km</td>
                     <td className="p-3">
                       <Link href="/bolgeler/akpinar-evden-eve-nakliyat" className="text-orange-text font-bold hover:underline">
                         Akpınar Evden Eve Nakliyat Hizmetleri
