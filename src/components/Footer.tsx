@@ -190,16 +190,16 @@ export default function Footer() {
               href="https://www.growbdijital.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 hover:text-white transition-colors bg-white/5 border border-white/10 px-3.5 py-2.5 rounded-xl shadow-md hover:shadow-lg w-fit transition-all duration-200"
+              className="flex items-center gap-2 hover:text-white transition-colors bg-white px-3.5 py-2.5 rounded-xl shadow-md hover:shadow-lg w-fit transition-all duration-200"
             >
-              <span className="text-[10px] text-brand-gray font-extrabold tracking-wide">TASARIM & SEO:</span>
+              <span className="text-[10px] text-gray-500 font-extrabold tracking-wide">TASARIM & SEO:</span>
               <Image
-                src="/img/growb-logo.png"
+                src="/img/growb-logo.jpg"
                 alt="Growb. Dijital Pazarlama ve SEO Ajansı logosu"
-                width={48}
-                height={48}
+                width={100}
+                height={32}
                 loading="lazy"
-                className="h-10 w-10 object-contain brightness-0 invert"
+                className="h-6 w-auto object-contain"
               />
             </a>
           </div>
