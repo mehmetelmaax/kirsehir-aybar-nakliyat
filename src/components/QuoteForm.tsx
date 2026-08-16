@@ -4,8 +4,10 @@ import React, { useState, useRef } from 'react';
 import { Send, Phone, CheckCircle, AlertCircle, MessageCircle } from 'lucide-react';
 import Link from 'next/link';
 import { SITE } from '@/lib/site-config';
+import { FACTS } from '@/lib/facts';
 import { QuoteFormSchema, DISTRICT_OPTIONS } from '@/lib/validation';
 import { trackEvent } from '@/lib/analytics';
+import Turnstile from '@/components/Turnstile';
 
 interface QuoteFormProps {
   isInline?: boolean;
@@ -23,12 +25,16 @@ export default function QuoteForm({ isInline = false }: QuoteFormProps) {
     kvkkConsent: false,
   });
 
+  const [turnstileToken, setTurnstileToken] = useState('');
+  const [serverEstimate, setServerEstimate] = useState<{ min: number; max: number } | null>(null);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
   
   // Track if form started event has been fired
   const formStartedRef = useRef(false);
+
+  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA';
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target as HTMLInputElement;
@@ -51,20 +57,31 @@ export default function QuoteForm({ isInline = false }: QuoteFormProps) {
     }
   };
 
-  const calculateEstimate = () => {
-    // Görev 9: Tüm hesaplama ve fiyat gösterim robotunu 20.000 TL - 25.000 TL sabit aralığı dönecek şekilde eşitle.
-    return { min: 20000, max: 25000 };
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('submitting');
     setErrors({});
     setErrorMessage('');
 
+    // Pre-open window immediately to capture user gesture
+    const w = typeof window !== 'undefined' ? window.open('', '_blank') : null;
+
+    if (!turnstileToken) {
+      if (w) w.close();
+      setErrors((prev) => ({ ...prev, turnstileToken: 'Lütfen robot doğrulamasını tamamlayın.' }));
+      setStatus('idle');
+      return;
+    }
+
+    const payload = {
+      ...formData,
+      turnstileToken
+    };
+
     // Zod Client-side Validation
-    const validation = QuoteFormSchema.safeParse(formData);
+    const validation = QuoteFormSchema.safeParse(payload);
     if (!validation.success) {
+      if (w) w.close();
       const fieldErrors = validation.error.flatten().fieldErrors;
       const newErrors: { [key: string]: string } = {};
       
@@ -90,13 +107,13 @@ export default function QuoteForm({ isInline = false }: QuoteFormProps) {
       const response = await fetch('/api/teklif', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       });
 
       const data = await response.json();
-      const priceRange = calculateEstimate();
 
       if (response.ok && data.ok) {
+        setServerEstimate(data.estimate);
         setStatus('success');
 
         // Track Form Submit Event
@@ -104,25 +121,30 @@ export default function QuoteForm({ isInline = false }: QuoteFormProps) {
           fromDistrict: formData.fromDistrict,
           toDistrict: formData.toDistrict,
           rooms: formData.rooms,
-          tahminiFiyat: `${priceRange.min}-${priceRange.max}`
+          tahminiFiyat: `${data.estimate.min}-${data.estimate.max}`
         });
 
-        // Open WhatsApp in a new tab/window
-        const link = getWhatsAppLink();
-        window.open(link, '_blank');
+        // Redirect pre-opened window to WhatsApp
+        const link = getWhatsAppLink(data.estimate);
+        if (w) {
+          w.location.href = link;
+        }
       } else {
+        if (w) w.close();
         setErrorMessage(data.message || 'İstek işlenirken sunucuda bir hata oluştu.');
         setStatus('error');
       }
     } catch (err) {
+      if (w) w.close();
       console.error(err);
       setErrorMessage('Bağlantı hatası oluştu. Lütfen internetinizi kontrol edin.');
       setStatus('error');
     }
   };
 
-  const getWhatsAppLink = () => {
-    const text = `Merhaba, Kırşehir Aybar Nakliyat sitenizden bir fiyat teklifi oluşturdum:\n\n👤 Adı Soyadı: ${formData.name}\n📞 Telefon: ${formData.phone}\n📍 Nereden: ${formData.fromDistrict}\n🏁 Nereye: ${formData.toDistrict}\n🏠 Oda Sayısı: ${formData.rooms}\n🏢 Asansör Durumu: ${formData.elevator === 'evet' ? 'Asansörlü Taşıma İstiyorum' : 'Asansör İstemiyorum'}\n\n💵 Tahmini Fiyat Aralığı: 20.000 TL - 25.000 TL`;
+  const getWhatsAppLink = (est?: { min: number; max: number } | null) => {
+    const activeEst = est || serverEstimate || { min: 20000, max: 25000 };
+    const text = `Merhaba, Kırşehir Aybar Nakliyat sitenizden bir fiyat teklifi oluşturdum:\n\n👤 Adı Soyadı: ${formData.name}\n📞 Telefon: ${formData.phone}\n📍 Nereden: ${formData.fromDistrict}\n🏁 Nereye: ${formData.toDistrict}\n🏠 Oda Sayısı: ${formData.rooms}\n🏢 Asansör Durumu: ${formData.elevator === 'evet' ? 'Asansörlü Taşıma İstiyorum' : 'Asansör İstemiyorum'}\n\n💵 Tahmini Fiyat Aralığı: ${activeEst.min.toLocaleString('tr-TR')} TL - ${activeEst.max.toLocaleString('tr-TR')} TL (Başlangıç fiyatıdır. Fiyat Güncelleme: ${FACTS.priceUpdateDate})`;
     return `${SITE.whatsappHref}?text=${encodeURIComponent(text)}`;
   };
 
@@ -148,6 +170,7 @@ export default function QuoteForm({ isInline = false }: QuoteFormProps) {
             id="name"
             name="name"
             required
+            data-clarity-mask="true"
             aria-required="true"
             aria-invalid={!!errors.name}
             aria-describedby={errors.name ? 'err-name' : undefined}
@@ -169,6 +192,7 @@ export default function QuoteForm({ isInline = false }: QuoteFormProps) {
             name="phone"
             inputMode="tel"
             required
+            data-clarity-mask="true"
             aria-required="true"
             aria-invalid={!!errors.phone}
             aria-describedby={errors.phone ? 'err-phone' : undefined}
@@ -301,13 +325,26 @@ export default function QuoteForm({ isInline = false }: QuoteFormProps) {
           />
           <span>
             <Link href="/yasal/kvkk" target="_blank" className="text-brand-accent hover:underline font-bold">
-              KVKK Açık Rıza Metnini
-            </Link>{' '}
-            okudum, onaylıyorum. Verilerimin WhatsApp (Meta) üzerinden güvenle iletileceğini kabul ediyorum.
+              KVKK Aydınlatma Metni
+            </Link>
+            &apos;ni okudum, onaylıyorum. Verilerimin WhatsApp (Meta) üzerinden güvenle iletileceğini kabul ediyorum.
           </span>
         </label>
         {errors.kvkkConsent && <span role="alert" className="text-[10px] text-rose-500 font-semibold block">{errors.kvkkConsent}</span>}
       </div>
+
+      {/* Cloudflare Turnstile */}
+      <Turnstile siteKey={turnstileSiteKey} onVerify={(token) => {
+        setTurnstileToken(token);
+        if (errors.turnstileToken) {
+          setErrors((prev) => {
+            const next = { ...prev };
+            delete next.turnstileToken;
+            return next;
+          });
+        }
+      }} />
+      {errors.turnstileToken && <span role="alert" className="text-[10px] text-rose-500 font-semibold text-center block">{errors.turnstileToken}</span>}
 
       {/* Submit button */}
       <button
@@ -348,7 +385,7 @@ export default function QuoteForm({ isInline = false }: QuoteFormProps) {
       </div>
 
       <div className="bg-brand-dark text-brand-accent rounded px-6 py-3 font-display font-black text-xl tracking-wide border border-brand-accent/20">
-        20.000 TL - 25.000 TL
+        {serverEstimate ? `${serverEstimate.min.toLocaleString('tr-TR')} TL - ${serverEstimate.max.toLocaleString('tr-TR')} TL` : 'Yükleniyor...'}
       </div>
       <p className={`text-[10px] font-bold italic ${isInline ? 'text-slate-400' : 'text-brand-dark/70'}`}>
         * Başlangıç fiyatıdır. Kesin fiyat ücretsiz ekspertiz sonrası netleşir.
@@ -360,7 +397,10 @@ export default function QuoteForm({ isInline = false }: QuoteFormProps) {
           href={getWhatsAppLink()}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={() => trackEvent('whatsapp_tikla', { konum: 'form_basari', sayfa: window.location.pathname })}
+          onClick={() => {
+            trackEvent('whatsapp_yonlendirme');
+            trackEvent('whatsapp_tikla', { konum: 'form_basari', sayfa: window.location.pathname });
+          }}
           className="bg-[#25D366] hover:bg-[#20ba5a] text-white font-black py-3.5 rounded-xl border border-emerald-700 transition-all duration-200 shadow-md text-xs flex items-center justify-center gap-2 w-full animate-bounce"
         >
           <MessageCircle className="w-4 h-4 fill-current" />
@@ -453,7 +493,7 @@ export default function QuoteForm({ isInline = false }: QuoteFormProps) {
               </div>
               <div className="flex items-center gap-3">
                 <span className="bg-brand-accent/20 text-brand-accent p-2 rounded-full font-bold">✓</span>
-                <span>E-posta adresi istemiyoruz, spam göndermiyoruz.</span>
+                <span>Verileriniz şifreli olarak doğrudan WhatsApp üzerinden iletilir.</span>
               </div>
             </div>
           </div>

@@ -39,11 +39,15 @@ export default function CookieConsent() {
           <div className="space-y-1">
             <h4 className="font-display font-bold text-white text-xs tracking-wider uppercase">Çerez ve Gizlilik Tercihleri</h4>
             <p className="text-[11px] text-gray-300 leading-relaxed">
-              Sitemizde kullanıcı deneyimini iyileştirmek amacıyla analitik izleme (Google Analytics) ve oturum kaydı (Microsoft Clarity) araçları kullanılmaktadır. Form verileriniz güvenliğiniz için doğrudan WhatsApp (Meta) üzerinden iletilir. Detaylar için{' '}
+              Sitemizde kullanıcı deneyimini analiz etmek için analitik izleme (Google Analytics 4) ve oturum kaydı (Microsoft Clarity) araçları kullanılmaktadır. Form verileriniz yerel sunucularda saklanmayıp doğrudan WhatsApp (Meta) üzerinden şifreli iletilir. Detaylar için{' '}
               <Link href="/yasal/gizlilik" target="_blank" className="text-orange hover:underline font-semibold">
                 Gizlilik Politikamızı
               </Link>{' '}
-              inceleyebilirsiniz.
+              ve{' '}
+              <Link href="/yasal/kvkk" target="_blank" className="text-orange hover:underline font-semibold">
+                KVKK Aydınlatma Metni
+              </Link>
+              &apos;ni inceleyebilirsiniz.
             </p>
           </div>
         </div>

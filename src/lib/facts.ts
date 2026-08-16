@@ -6,4 +6,5 @@ export const FACTS = {
   foundedYear: 2012,
   insurer: 'Anadolu Sigorta',
   districtCount: 7,
+  priceUpdateDate: 'Ağustos 2026',
 } as const;

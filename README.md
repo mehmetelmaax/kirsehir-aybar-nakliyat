@@ -42,10 +42,8 @@ Geliştirme veya canlı ortama geçişte kök dizinde bir `.env.local` dosyası 
 | `NEXT_PUBLIC_CLARITY_ID`| Microsoft Clarity Proje Kimliği. | [clarity.microsoft.com](https://clarity.microsoft.com) panelinden alınan 10 haneli proje kodu. |
 | `NEXT_PUBLIC_GSC_VERIFICATION`| Google Search Console doğrulama kodu. | Search Console mülk doğrulama adımındaki `<meta>` etiketinin `content` değeri. |
 | `NEXT_PUBLIC_YANDEX_VERIFICATION`| Yandex Webmaster doğrulama kodu. | Yandex Webmaster panelindeki doğrulama meta etiketi içeriği. |
-| `RESEND_API_KEY` | Resend E-posta Gönderim API Anahtarı. | [resend.com](https://resend.com) panelinden oluşturulan `re_...` API anahtarı. |
-| `LEAD_NOTIFY_EMAIL` | Teklif formlarının gönderileceği hedef bildirim e-posta adresi. | Bildirimlerin iletilmesini istediğiniz alıcı e-posta adresi. |
-| `LEAD_FROM_EMAIL` | E-postaların gönderici (From) adresi. | Resend üzerinde doğrulanmış alan adınızdan bir e-posta adresi. |
-| `LEAD_WEBHOOK_URL` | Hata durumunda teklif verilerinin gönderileceği webhook URL'si. | Slack, Discord, Zapier veya özel API POST webhook adresi. |
+| `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Cloudflare Turnstile Site Anahtarı. | [cloudflare.com](https://dash.cloudflare.com) panelinden oluşturulan Turnstile widget sitekey'i. |
+| `TURNSTILE_SECRET_KEY` | Cloudflare Turnstile Gizli Anahtarı. | [cloudflare.com](https://dash.cloudflare.com) panelinden alınan widget secret key'i. |
 
 *Örnek şablon için [.env.example](file:///.env.example) dosyasını inceleyin.*
 
@@ -124,7 +122,7 @@ Sitenin dinamik ve ölçeklenebilir yapısı gereği, yeni rotalar (hizmetler, b
 
 Siteyi Vercel veya başka bir sunucuya yüklemeden önce son kontrolleri yapın:
 
-1. **Çevre Değişkenleri:** Canlı sunucu panelinde `RESEND_API_KEY`, `NEXT_PUBLIC_GA_ID` ve `NEXT_PUBLIC_CLARITY_ID` değerlerinin girildiğini doğrulayın.
+1. **Çevre Değişkenleri:** Canlı sunucu panelinde `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`, `NEXT_PUBLIC_GA_ID` ve `NEXT_PUBLIC_CLARITY_ID` değerlerinin girildiğini doğrulayın. Lead teslimatları doğrudan WhatsApp üzerinden yapılmaktadır.
 2. **Kriter Denetimi:** Yerelde `npm run audit` komutunu çalıştırarak tüm SEO, OpenGraph ve görsel optimizasyon denetimlerinin başarıyla geçtiğinden emin olun.
 3. **Resim Boyutları:** `node scripts/optimize-images.mjs` komutunu çalıştırarak tüm responsive görsellerin üretildiğini ve 200 KB alt sınırını koruduğunu teyit edin.
 4. **Kod Derleme ve Tip Kontrolü:** `npx tsc --noEmit` ve `npm run build` komutlarının hatasız bittiğini görün.

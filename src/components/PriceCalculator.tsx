@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { estimatePrice, PriceInput } from '@/lib/pricing';
 import { SITE } from '@/lib/site-config';
+import { FACTS } from '@/lib/facts';
 import { Calculator, MessageCircle, Phone, ArrowRight, ArrowLeft, CheckCircle2 } from 'lucide-react';
 import { trackEvent } from '@/lib/analytics';
 
@@ -325,7 +326,7 @@ Bu tahmini hesaplama üzerinden detayları netleştirmek ve net teklif almak ist
             <div className="bg-orange/10 border border-orange/20 rounded-xl p-4 flex items-start gap-2.5">
               <CheckCircle2 className="w-5 h-5 text-orange-text shrink-0 mt-0.5" />
               <p className="text-[11px] text-navy font-bold leading-relaxed">
-                Bu tahmini bir hesaplamadır, kesin fiyat ücretsiz ekspertiz sonrası verilir.
+                Başlangıç fiyatıdır, kesin fiyat ücretsiz ekspertiz sonrası verilir. (Fiyat Güncelleme Tarihi: {FACTS.priceUpdateDate})
               </p>
             </div>
 

@@ -25,6 +25,16 @@ export default function Analytics() {
     };
   }, []);
 
+  useEffect(() => {
+    if (hasConsent && clarityId && typeof window !== 'undefined') {
+      const clarity = (window as unknown as { clarity: (action: string, value: boolean) => void }).clarity;
+      if (clarity) {
+        clarity("consent", true);
+      }
+    }
+  }, [hasConsent, clarityId]);
+
+
   if (!gaId && !clarityId) return null;
 
   if (!hasConsent) {
@@ -92,6 +102,7 @@ export default function Analytics() {
                 t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
                 y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
             })(window,document,"clarity","script","${clarityId}");
+            window.clarity("consent", false);
           `}
         </Script>
       )}
