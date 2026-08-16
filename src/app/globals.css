@@ -1,0 +1,145 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand-specific tokens mapping to User's color palette */
+  --color-brand-dark: #111111;        /* Güçlü Siyah */
+  --color-brand-darker: #0D0D0D;      /* Deep black for contrast */
+  --color-brand-accent: #F5C400;      /* Güvenlik Sarısı */
+  --color-brand-accentHover: #E0B300; /* Yellow hover state */
+  --color-brand-light: #F7F7F5;       /* Kırık Beyaz */
+  --color-brand-card: #292929;        /* Antrasit */
+  --color-brand-gray: #64748B;        /* Cool Slate gray for body secondary */
+  --color-brand-neutral: #D9D9D9;     /* Açık Gri */
+
+  /* Compatibility theme mappings for tailwind classes */
+  --color-navy: #111111;
+  --color-orange: #F5C400;
+  --color-orange-text: #E0B300;
+  --color-charcoal: #292929;
+  --color-gray-light: #D9D9D9;
+  --color-off-white: #F7F7F5;
+  --color-white: #FFFFFF;
+
+  --font-sans: 'Inter', sans-serif;
+  --font-display: 'Poppins', sans-serif;
+}
+
+:root {
+  --background: #F7F7F5;
+  --foreground: #111111;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #111111;
+}
+::-webkit-scrollbar-thumb {
+  background: #F5C400;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #E0B300;
+}
+
+/* Premium Glassmorphism (Yellow/Black Industrial Theme) */
+.glass-nav {
+  background: rgba(17, 17, 17, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(245, 196, 0, 0.1);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(25, 25, 25, 0.08);
+}
+
+.glass-card-dark {
+  background: rgba(41, 41, 41, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(245, 196, 0, 0.15);
+}
+
+/* Hero Background Overlay */
+.hero-overlay {
+  background: linear-gradient(
+    135deg,
+    rgba(17, 17, 17, 0.97) 0%,
+    rgba(41, 41, 41, 0.90) 50%,
+    rgba(17, 17, 17, 0.97) 100%
+  );
+}
+
+/* Custom Hover Effects */
+.nav-link-hover {
+  position: relative;
+}
+.nav-link-hover::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: #F5C400;
+  transition: width 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.nav-link-hover:hover::after {
+  width: 100%;
+}
+
+/* Accessibility Focus Ring */
+*:focus-visible {
+  outline: 2px solid #F5C400;
+  outline-offset: 2px;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* 
+ * DYNAMIC SUBPAGE BANNER BACKGROUND OVERRIDES
+ * Applies the optimized night logistics grid banner to all standard page subheaders.
+ */
+main > section.bg-navy {
+  background-image: url('/img/sub-banner-1920.webp') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  position: relative !important;
+  z-index: 10 !important;
+  padding-top: 6rem !important;
+  padding-bottom: 6rem !important;
+}
+
+main > section.bg-navy::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(17, 17, 17, 0.88) !important; /* Premium high contrast dark overlay */
+  z-index: -1 !important;
+}
+
+main > section.bg-navy > div {
+  position: relative !important;
+  z-index: 20 !important;
+}
