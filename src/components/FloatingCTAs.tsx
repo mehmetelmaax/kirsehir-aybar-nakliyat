@@ -39,7 +39,7 @@ export default function FloatingCTAs() {
             <div className="space-y-1">
               <span className="text-[10px] font-bold text-orange tracking-wider block">MERKEZ OFİSİMİZ</span>
               <h4 className="font-display font-bold text-xs leading-snug">Yol Tarifi Alın</h4>
-              <p className="text-[10px] text-gray-300 leading-relaxed">Fatih Mh. Merkez/Kırşehir adresimize Google Haritalar ile ulaşın.</p>
+              <p className="text-[10px] text-gray-300 leading-relaxed">{SITE.address.street} {SITE.address.locality}/{SITE.address.region} adresimize Google Haritalar ile ulaşın.</p>
               <a 
                 href="https://share.google/YoiHqgk0tx65LVd0H"
                 target="_blank"
@@ -70,9 +70,9 @@ export default function FloatingCTAs() {
               <MessageCircle className="w-5 h-5 fill-current" />
             </div>
             <div className="space-y-1">
-              <span className="text-[10px] font-bold text-emerald-600 tracking-wider block">7/24 AKTİF HAT</span>
+              <span className="text-[10px] font-bold text-emerald-600 tracking-wider block">{SITE.hours.opens} - {SITE.hours.closes} AKTİF HAT</span>
               <h4 className="font-display font-bold text-navy text-xs leading-snug">WhatsApp Destek</h4>
-              <p className="text-[10px] text-charcoal leading-relaxed">Eşya fotoğraflarınızı atıp anında hızlı fiyat teklifi alabilirsiniz.</p>
+              <p className="text-[10px] text-charcoal leading-relaxed">Eşya fotoğraflarınızı atıp anında hızlı fiyat teklifi alabilirsiniz. Mesajlarınıza 08:00–20:00 saatleri arasında hızlıca dönüş yapıyoruz.</p>
               <a 
                 href={`${SITE.whatsappHref}?text=Merhaba,%20evimi%20taşımak%20istiyorum.%20Fiyat%20teklifi%20alabilir%20miyim?`}
                 target="_blank"

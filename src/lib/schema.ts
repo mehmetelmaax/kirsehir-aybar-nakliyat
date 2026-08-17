@@ -73,7 +73,7 @@ export function organizationSchema() {
       '@type': 'AdministrativeArea',
       'name': `${district.name}, Kırşehir`
     })),
-    'foundingDate': `${FACTS.foundedYear}-03-15`,
+    'foundingDate': FACTS.foundedYear.toString(),
     'priceRange': '$$',
     'currenciesAccepted': 'TRY',
     'paymentAccepted': 'Nakit, Kredi Kartı, Havale/EFT',
@@ -81,11 +81,7 @@ export function organizationSchema() {
       '@type': 'EducationalOccupationalCredential',
       'name': 'K3 Yetki Belgesi',
       'credentialCategory': 'K3 Ev ve Ofis Taşımacılığı Yetki Belgesi'
-    }, // DOĞRULA: K3 belge numarası teyit edildiğinde eklenecek
-    'numberOfEmployees': {
-      '@type': 'QuantitativeValue',
-      'value': 12
-    }, // DOĞRULA: Ekiplerdeki toplam personel sayısı teyit edilmeli
+    }, // DOĞRULA: K3 belge numarası teyit edildiğinde hasCredential nesnesine credentialId alanı eklenecektir.
     'knowsAbout': [
       'evden eve nakliyat',
       'asansörlü nakliyat',

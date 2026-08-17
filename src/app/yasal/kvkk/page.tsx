@@ -50,7 +50,7 @@ export default function KVKKPage() {
 
           <h2 className="font-display font-bold text-navy text-lg">3. Kişisel Verilerin İşlenme Amacı ve Hukuki Sebebi</h2>
           <p className="leading-relaxed">
-            Kişisel verileriniz, KVKK’nın 5/2-c maddesinde belirtilen <strong>&quot;Bir sözleşmenin kurulması veya ifasıyla doğrudan doğruya ilgili olması kaydıyla, sözleşmenin taraflarına ait kişisel verilerin işlenmesinin gerekli olması&quot;</strong> hukuki sebebine dayanarak evden eve nakliye teklifinin hazırlanması ve hizmetin organize edilmesi amacıyla işlenmektedir. Ayrıca, KVKK’nın 5/2-f maddesi uyarınca <strong>&quot;Veri sorumlusunun meşru menfaatleri için veri işlenmesinin zorunlu olması&quot;</strong> hukuki sebebiyle sitenin güvenliğini sağlama ve bot istekleri Turnstile ile engelleme süreçleri kapsamında işleme yürütülür.
+            Kişisel verileriniz, KVKK’nın 5/2-c maddesinde belirtilen <strong>&quot;Bir sözleşmenin kurulması veya ifasıyla doğrudan doğruya ilgili olması kaydıyla, sözleşmenin taraflarına ait kişisel verilerin işlenmesinin gerekli olması&quot;</strong> hukuki sebebine dayanarak evden eve nakliye teklifinin hazırlanması ve hizmetin organize edilmesi amacıyla işlenmektedir. Ayrıca, KVKK’nın 5/2-f maddesi uyarınca <strong>&quot;Veri sorumlusunun meşru menfaatleri için veri işlenmesinin zorunlu olması&quot;</strong> hukuki sebebiyle sitenin güvenliğini sağlama ve kötü niyetli bot isteklerini engelleme süreçleri kapsamında işleme yürütülür.
           </p>
 
           <h2 className="font-display font-bold text-navy text-lg">4. İşlenen Kişisel Verilerin Aktarılması ve Yurt Dışı Aktarım</h2>

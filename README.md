@@ -1,5 +1,12 @@
 # Kırşehir Aybar Nakliyat - Kurumsal Web Sitesi
 
+> [!CAUTION]
+> **YAYIN ÖNCESİ ZORUNLU KONTROL (Kritik İş Blokesi)**
+> Sitedeki tüm teklif ve hızlı iletişim akışları **yalnızca WhatsApp** üzerinden yürütülmektedir. Bu nedenle:
+> 1. `site-config.ts` içerisindeki `SITE.whatsapp` (`905414645890`) numarasının WhatsApp Business üzerinde aktif ve çalışır olduğu **kesinlikle elle test edilmelidir**.
+> 2. WhatsApp alıcı numarası (`905414645890`) ile sitede yayınlanan normal arama numarası (`0537 312 34 47`) birbirinden **farklıdır**. Bunun bilinçli bir tercih olduğu firma sahibinden teyit edilmelidir.
+> 3. Bu numaranın yanlış, kapalı veya WhatsApp'sız olması halinde **tüm dönüşümler ve müşteri talepleri tamamen kaybolur** ve geri getirilemez.
+
 Bu proje, Kırşehir Aybar Evden Eve Nakliyat firması için özel olarak geliştirilmiş; **SEO Otoritesi (Topical Authority), Core Web Vitals (Hız & Performans), Erişilebilirlik (WCAG AA), Dönüşüm Optimizasyonu ve Güvenli Kurumsal Altyapı** odaklı modern bir Next.js 16 uygulamasıdır.
 
 ---

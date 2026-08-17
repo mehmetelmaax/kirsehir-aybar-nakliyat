@@ -1,61 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { QuoteFormSchema } from '@/lib/validation';
-import { DISTRICTS } from '@/lib/site-config';
-import { estimatePrice, PriceInput } from '@/lib/pricing';
 
-async function verifyTurnstile(token: string, ip: string): Promise<boolean> {
-  const secretKey = process.env.TURNSTILE_SECRET_KEY;
-  if (!secretKey) {
-    console.warn('TURNSTILE_WARN: TURNSTILE_SECRET_KEY not configured. Verification skipped.');
+// Simple rolling window in-memory IP rate limiter map (10 requests per 10 minutes)
+// TODO: Use Upstash Redis or Vercel KV for a production-grade distributed state
+const rateLimitMap = new Map<string, number[]>();
+const LIMIT_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
+const LIMIT_MAX_REQUESTS = 10;
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const timestamps = rateLimitMap.get(ip) || [];
+  
+  // Filter timestamps within the rolling window
+  const validTimestamps = timestamps.filter(ts => now - ts < LIMIT_WINDOW_MS);
+  
+  if (validTimestamps.length >= LIMIT_MAX_REQUESTS) {
     return true;
   }
   
-  try {
-    const res = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        secret: secretKey,
-        response: token,
-        remoteip: ip
-      })
-    });
-    const data = await res.json();
-    return !!data.success;
-  } catch (err) {
-    console.error('TURNSTILE_ERROR: Failed to contact Cloudflare siteverify API:', err);
-    return false;
-  }
-}
-
-function calculateServerEstimate(rooms: string, elevator: string, fromDistrict: string, toDistrict: string) {
-  const isIntercity = fromDistrict.includes('Şehirlerarası') || toDistrict.includes('Şehirlerarası');
-  const isDistrict = fromDistrict !== 'Merkez' || toDistrict !== 'Merkez';
-  
-  const distanceType: PriceInput['distanceType'] = isIntercity 
-    ? 'sehirlerarasi' 
-    : (isDistrict ? 'ilceler' : 'sehirici');
-
-  // Look up distances dynamically from site-config
-  const d1 = DISTRICTS.find(d => d.name === fromDistrict)?.distanceKm ?? 0;
-  const d2 = DISTRICTS.find(d => d.name === toDistrict)?.distanceKm ?? 0;
-  // If one of the districts is Intercity, default distance to 300km, otherwise calculate distanceKm
-  const distanceKm = isIntercity ? 300 : Math.abs(d1 - d2);
-
-  const input: PriceInput = {
-    rooms: (['1+1', '2+1', '3+1', '4+1+', 'ofis'].includes(rooms) ? rooms : '3+1') as PriceInput['rooms'],
-    fromFloor: 3,
-    toFloor: 3,
-    fromElevator: elevator === 'evet',
-    toElevator: elevator === 'evet',
-    distanceType,
-    distanceKm,
-    packing: true,
-    carpentry: true,
-    storage: false
-  };
-
-  return estimatePrice(input);
+  validTimestamps.push(now);
+  rateLimitMap.set(ip, validTimestamps);
+  return false;
 }
 
 export async function POST(req: NextRequest) {
@@ -63,22 +28,22 @@ export async function POST(req: NextRequest) {
     const forwarded = req.headers.get('x-forwarded-for');
     const ip = forwarded ? forwarded.split(',')[0].trim() : (req.headers.get('x-real-ip') || '127.0.0.1');
 
-    // 1. Parse request body
-    const body = await req.json().catch(() => ({}));
-
-    // 2. Turnstile Verification
-    const turnstileVerified = await verifyTurnstile(body.turnstileToken || '', ip);
-    if (!turnstileVerified) {
+    // 1. IP Rate Limiting check
+    if (isRateLimited(ip)) {
+      console.warn(`RATE_LIMIT_TRIGGERED: IP ${ip} exceeded telemetry submission limits.`);
       return NextResponse.json(
-        { ok: false, message: 'Robot doğrulaması başarısız oldu. Lütfen tekrar deneyin.' },
-        { status: 400 }
+        { ok: false, message: 'Çok fazla istek gönderdiniz. Lütfen daha sonra tekrar deneyin.' },
+        { status: 429 }
       );
     }
+
+    // 2. Parse request body
+    const body = await req.json().catch(() => ({}));
 
     // 3. Honeypot check (website must be empty)
     if (body.website && body.website.trim().length > 0) {
       console.warn('BOT_DETECTION: Honeypot filled by bot:', body.website);
-      return NextResponse.json({ ok: true, estimate: { min: 20000, max: 25000 } });
+      return new NextResponse(null, { status: 204 });
     }
 
     // 4. Server-side validation using Zod
@@ -95,20 +60,17 @@ export async function POST(req: NextRequest) {
     }
 
     const leadData = validationResult.data;
-    const est = calculateServerEstimate(leadData.rooms, leadData.elevator, leadData.fromDistrict, leadData.toDistrict);
 
-    // 5. Anonymous telemetry logging (No PII)
-    console.log('Lead submission processed:', {
+    // 5. Anonymous telemetry logging (No PII: names and phones are excluded)
+    console.log('Lead submission telemetry:', {
       fromDistrict: leadData.fromDistrict,
       toDistrict: leadData.toDistrict,
       rooms: leadData.rooms,
       elevator: leadData.elevator,
-      minPrice: est.min,
-      maxPrice: est.max,
       timestamp: new Date().toISOString()
     });
 
-    return NextResponse.json({ ok: true, estimate: est });
+    return NextResponse.json({ ok: true });
 
   } catch (error) {
     const errorObject = error instanceof Error ? error : new Error(String(error));

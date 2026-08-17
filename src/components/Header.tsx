@@ -108,7 +108,7 @@ export default function Header() {
                 className="flex items-center gap-1.5 hover:text-brand-accent transition-colors font-bold"
               >
                 <Phone className="w-3.5 h-3.5 text-brand-accent" />
-                <span>7/24 Destek: {SITE.phoneDisplay}</span>
+                <span>Müşteri Hizmetleri ({SITE.hours.opens} - {SITE.hours.closes}): {SITE.phoneDisplay}</span>
               </a>
             </div>
             <div></div>
@@ -251,7 +251,7 @@ export default function Header() {
                 className="bg-white/10 hover:bg-white/15 text-white border border-white/20 px-3 py-2 xl:px-4 xl:py-2.5 rounded-xl font-extrabold text-[10px] xl:text-[11px] 2xl:text-xs shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 tracking-wider flex items-center gap-1"
               >
                 <Phone className="w-3 h-3 xl:w-3.5 xl:h-3.5 fill-current text-brand-accent" />
-                <span>0537 312 34 47</span>
+                <span>{SITE.phoneDisplay}</span>
               </a>
             </div>
 

@@ -14,6 +14,7 @@ Disallow: /api/
 Disallow: /_next/
 Disallow: /admin/
 Allow: /_next/static/
+Allow: /_next/image
 Allow: /
 
 User-agent: Googlebot

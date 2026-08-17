@@ -121,3 +121,36 @@ export function estimatePrice(input: PriceInput): PriceEstimate {
     disclaimer
   };
 }
+
+import { DISTRICTS } from './site-config';
+
+export function estimateFromQuoteForm(rooms: string, elevator: string, fromDistrict: string, toDistrict: string) {
+  const isIntercity = fromDistrict.includes('Şehirlerarası') || toDistrict.includes('Şehirlerarası');
+  const isDistrict = fromDistrict !== 'Merkez' || toDistrict !== 'Merkez';
+  
+  const distanceType: PriceInput['distanceType'] = isIntercity 
+    ? 'sehirlerarasi' 
+    : (isDistrict ? 'ilceler' : 'sehirici');
+
+  // Look up distances dynamically from site-config
+  const d1 = DISTRICTS.find(d => d.name === fromDistrict)?.distanceKm ?? 0;
+  const d2 = DISTRICTS.find(d => d.name === toDistrict)?.distanceKm ?? 0;
+  // If one of the districts is Intercity, default distance to 300km, otherwise calculate distanceKm
+  const distanceKm = isIntercity ? 300 : Math.abs(d1 - d2);
+
+  const input: PriceInput = {
+    rooms: (['1+1', '2+1', '3+1', '4+1+', 'ofis'].includes(rooms) ? rooms : '3+1') as PriceInput['rooms'],
+    fromFloor: 3,
+    toFloor: 3,
+    fromElevator: elevator === 'evet',
+    toElevator: elevator === 'evet',
+    distanceType,
+    distanceKm,
+    packing: true,
+    carpentry: true,
+    storage: false
+  };
+
+  return estimatePrice(input);
+}
+

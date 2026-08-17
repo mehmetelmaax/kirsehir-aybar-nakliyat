@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { MessageCircle, Phone, ShieldCheck, Clock, Users, ChevronLeft, ChevronRight, MapPin } from 'lucide-react';
 import QuoteForm from './QuoteForm';
 import { SITE } from '@/lib/site-config';
-
 import { trackEvent } from '@/lib/analytics';
 
 const SLIDES = [
@@ -46,17 +45,24 @@ const SLIDES = [
 
 export default function HeroSlider() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [isFocused, setIsFocused] = useState(false);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if (mediaQuery.matches) return; // Disable autoplay if motion-sensitive
+    if (mediaQuery.matches) {
+      setTimeout(() => setIsPlaying(false), 0);
+      return;
+    }
+
+    if (!isPlaying || isFocused) return;
 
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % SLIDES.length);
     }, 7000); // 7 seconds autoplay duration
     return () => clearInterval(timer);
-  }, []);
+  }, [isPlaying, isFocused]);
 
   const handlePrev = () => {
     setCurrentSlide((prev) => (prev - 1 + SLIDES.length) % SLIDES.length);
@@ -68,10 +74,14 @@ export default function HeroSlider() {
     trackEvent('slider_navigasyon', { yon: 'ileri', slide: currentSlide });
   };
 
+  const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${SITE.name} ${SITE.address.street} ${SITE.address.locality} Kırşehir`)}`;
+
   return (
     <section 
       className="relative w-full min-h-[100svh] flex items-center pt-28 pb-16 overflow-hidden bg-brand-dark"
       aria-label="Kırşehir Aybar Nakliyat Tanıtım Bölümü"
+      onFocusCapture={() => setIsFocused(true)}
+      onBlurCapture={() => setIsFocused(false)}
     >
       {/* Background slide images with next/image crossfade */}
       {SLIDES.map((slide, idx) => (
@@ -80,10 +90,14 @@ export default function HeroSlider() {
           className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
             idx === currentSlide ? 'opacity-100 z-0' : 'opacity-0 z-0 pointer-events-none'
           }`}
+          aria-hidden={idx !== currentSlide}
+          role="group"
+          aria-roledescription="slide"
+          aria-label={`${SLIDES.length} slayttan ${idx + 1}. slayt`}
         >
           <Image
             src={slide.image}
-            alt={slide.title.replace(/\n/g, ' ')}
+            alt={slide.badge}
             fill
             sizes="100vw"
             priority={idx === 0}
@@ -146,7 +160,7 @@ export default function HeroSlider() {
             </a>
 
             <a
-              href="https://share.google/YoiHqgk0tx65LVd0H"
+              href={googleMapsUrl}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackEvent('konum_tikla', { konum: 'hero', sayfa: 'anasayfa' })}
@@ -207,21 +221,34 @@ export default function HeroSlider() {
         <ChevronRight className="w-6 h-6" />
       </button>
 
-      {/* Slider Indicator Dots */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-25">
-        {SLIDES.map((_, idx) => (
-          <button
-            key={idx}
-            onClick={() => {
-              setCurrentSlide(idx);
-              trackEvent('slider_nokta_tikla', { index: idx });
-            }}
-            className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
-              idx === currentSlide ? 'bg-brand-accent w-6' : 'bg-white/40 hover:bg-white/70'
-            }`}
-            aria-label={`Slayt ${idx + 1}`}
-          />
-        ))}
+      {/* Slider Indicator Dots & Autoplay Controls */}
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-4 z-25">
+        <div className="flex gap-2">
+          {SLIDES.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => {
+                setCurrentSlide(idx);
+                trackEvent('slider_nokta_tikla', { index: idx });
+              }}
+              className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                idx === currentSlide ? 'bg-brand-accent w-6' : 'bg-white/40 hover:bg-white/70'
+              }`}
+              aria-label={`Slayt ${idx + 1}`}
+              aria-current={idx === currentSlide ? 'true' : 'false'}
+            />
+          ))}
+        </div>
+        <button
+          onClick={() => {
+            setIsPlaying(!isPlaying);
+            trackEvent('slider_otomatik_gecis', { durum: !isPlaying ? 'acik' : 'kapali' });
+          }}
+          className="bg-brand-dark/60 hover:bg-brand-accent text-white hover:text-brand-dark py-1 px-2.5 rounded-lg border border-white/10 hover:border-brand-accent transition-all duration-200 focus:outline-none cursor-pointer text-[9px] font-black uppercase tracking-wider flex items-center justify-center min-w-[65px]"
+          aria-label={isPlaying ? "Otomatik Geçişi Duraklat" : "Otomatik Geçişi Başlat"}
+        >
+          {isPlaying ? "DURAKLAT" : "OYNAT"}
+        </button>
       </div>
     </section>
   );

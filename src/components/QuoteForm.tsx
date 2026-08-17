@@ -1,13 +1,13 @@
 'use client';
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Send, Phone, CheckCircle, AlertCircle, MessageCircle } from 'lucide-react';
 import Link from 'next/link';
 import { SITE } from '@/lib/site-config';
 import { FACTS } from '@/lib/facts';
 import { QuoteFormSchema, DISTRICT_OPTIONS } from '@/lib/validation';
 import { trackEvent } from '@/lib/analytics';
-import Turnstile from '@/components/Turnstile';
+import { estimateFromQuoteForm } from '@/lib/pricing';
 
 interface QuoteFormProps {
   isInline?: boolean;
@@ -25,16 +25,20 @@ export default function QuoteForm({ isInline = false }: QuoteFormProps) {
     kvkkConsent: false,
   });
 
-  const [turnstileToken, setTurnstileToken] = useState('');
-  const [serverEstimate, setServerEstimate] = useState<{ min: number; max: number } | null>(null);
+  const [estimate, setEstimate] = useState<{ min: number; max: number } | null>(null);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [popupBlocked, setPopupBlocked] = useState(false);
   
   // Track if form started event has been fired
   const formStartedRef = useRef(false);
+  const fallbackButtonRef = useRef<HTMLAnchorElement>(null);
 
-  const turnstileSiteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || '1x00000000000000000000AA';
+  useEffect(() => {
+    if (status === 'success' && popupBlocked && fallbackButtonRef.current) {
+      fallbackButtonRef.current.focus();
+    }
+  }, [status, popupBlocked]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target as HTMLInputElement;
@@ -57,31 +61,13 @@ export default function QuoteForm({ isInline = false }: QuoteFormProps) {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setStatus('submitting');
     setErrors({});
-    setErrorMessage('');
 
-    // Pre-open window immediately to capture user gesture
-    const w = typeof window !== 'undefined' ? window.open('', '_blank') : null;
-
-    if (!turnstileToken) {
-      if (w) w.close();
-      setErrors((prev) => ({ ...prev, turnstileToken: 'Lütfen robot doğrulamasını tamamlayın.' }));
-      setStatus('idle');
-      return;
-    }
-
-    const payload = {
-      ...formData,
-      turnstileToken
-    };
-
-    // Zod Client-side Validation
-    const validation = QuoteFormSchema.safeParse(payload);
+    // 1. Zod Client-side Validation
+    const validation = QuoteFormSchema.safeParse(formData);
     if (!validation.success) {
-      if (w) w.close();
       const fieldErrors = validation.error.flatten().fieldErrors;
       const newErrors: { [key: string]: string } = {};
       
@@ -90,7 +76,6 @@ export default function QuoteForm({ isInline = false }: QuoteFormProps) {
       });
 
       setErrors(newErrors);
-      setStatus('idle');
       
       // Track Form Error Event
       const errorKeys = Object.keys(newErrors);
@@ -103,48 +88,71 @@ export default function QuoteForm({ isInline = false }: QuoteFormProps) {
       return;
     }
 
-    try {
-      const response = await fetch('/api/teklif', {
+    setStatus('submitting');
+
+    // 2. Honeypot check (website must be empty)
+    if (formData.website && formData.website.trim().length > 0) {
+      console.warn('BOT_DETECTION: Honeypot filled by bot:', formData.website);
+      setStatus('success');
+      setEstimate({ min: 20000, max: 25000 });
+      // Fire-and-forget telemetry for bot detection
+      fetch('/api/teklif', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await response.json();
-
-      if (response.ok && data.ok) {
-        setServerEstimate(data.estimate);
-        setStatus('success');
-
-        // Track Form Submit Event
-        trackEvent('teklif_formu_gonderildi', {
-          fromDistrict: formData.fromDistrict,
-          toDistrict: formData.toDistrict,
-          rooms: formData.rooms,
-          tahminiFiyat: `${data.estimate.min}-${data.estimate.max}`
-        });
-
-        // Redirect pre-opened window to WhatsApp
-        const link = getWhatsAppLink(data.estimate);
-        if (w) {
-          w.location.href = link;
-        }
-      } else {
-        if (w) w.close();
-        setErrorMessage(data.message || 'İstek işlenirken sunucuda bir hata oluştu.');
-        setStatus('error');
-      }
-    } catch (err) {
-      if (w) w.close();
-      console.error(err);
-      setErrorMessage('Bağlantı hatası oluştu. Lütfen internetinizi kontrol edin.');
-      setStatus('error');
+        body: JSON.stringify(formData),
+        keepalive: true,
+      }).catch(() => {});
+      return;
     }
+
+    // 3. Client-side price calculation (synchronous)
+    const calculatedEstimate = estimateFromQuoteForm(
+      formData.rooms,
+      formData.elevator,
+      formData.fromDistrict,
+      formData.toDistrict
+    );
+    setEstimate(calculatedEstimate);
+
+    // 4. Generate WhatsApp link
+    const waLink = getWhatsAppLink(calculatedEstimate);
+
+    // 5. Open window synchronously inside user click gesture
+    const w = typeof window !== 'undefined' ? window.open(waLink, '_blank', 'noopener') : null;
+    if (w) {
+      setPopupBlocked(false);
+      trackEvent('whatsapp_pencere_acildi');
+    } else {
+      setPopupBlocked(true);
+      trackEvent('whatsapp_pencere_engellendi');
+    }
+
+    setStatus('success');
+
+    // 6. Track Form Submit Event
+    trackEvent('teklif_formu_gonderildi', {
+      fromDistrict: formData.fromDistrict,
+      toDistrict: formData.toDistrict,
+      rooms: formData.rooms,
+      tahminiFiyat: `${calculatedEstimate.min}-${calculatedEstimate.max}`
+    });
+
+    // 7. Fire-and-forget telemetry POST
+    fetch('/api/teklif', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData),
+      keepalive: true,
+    }).catch(() => {});
   };
 
   const getWhatsAppLink = (est?: { min: number; max: number } | null) => {
-    const activeEst = est || serverEstimate || { min: 20000, max: 25000 };
-    const text = `Merhaba, Kırşehir Aybar Nakliyat sitenizden bir fiyat teklifi oluşturdum:\n\n👤 Adı Soyadı: ${formData.name}\n📞 Telefon: ${formData.phone}\n📍 Nereden: ${formData.fromDistrict}\n🏁 Nereye: ${formData.toDistrict}\n🏠 Oda Sayısı: ${formData.rooms}\n🏢 Asansör Durumu: ${formData.elevator === 'evet' ? 'Asansörlü Taşıma İstiyorum' : 'Asansör İstemiyorum'}\n\n💵 Tahmini Fiyat Aralığı: ${activeEst.min.toLocaleString('tr-TR')} TL - ${activeEst.max.toLocaleString('tr-TR')} TL (Başlangıç fiyatıdır. Fiyat Güncelleme: ${FACTS.priceUpdateDate})`;
+    const activeEst = est || estimate || { min: 20000, max: 25000 };
+    
+    // Add disclaimer if elevator is not requested
+    const elevatorNote = formData.elevator === 'hayir' ? '\n* Kat bilgisi ekspertizde netleşecek.' : '';
+    
+    const text = `Merhaba, Kırşehir Aybar Nakliyat sitenizden bir fiyat teklifi oluşturdum:\n\n👤 Adı Soyadı: ${formData.name}\n📞 Telefon: ${formData.phone}\n📍 Nereden: ${formData.fromDistrict}\n🏁 Nereye: ${formData.toDistrict}\n🏠 Oda Sayısı: ${formData.rooms}\n🏢 Asansör Durumu: ${formData.elevator === 'evet' ? 'Asansörlü Taşıma İstiyorum' : 'Asansör İstemiyorum'}${elevatorNote}\n\n💵 Tahmini Fiyat Aralığı: ${activeEst.min.toLocaleString('tr-TR')} TL - ${activeEst.max.toLocaleString('tr-TR')} TL (Başlangıç fiyatıdır. Fiyat Güncelleme: ${FACTS.priceUpdateDate})`;
     return `${SITE.whatsappHref}?text=${encodeURIComponent(text)}`;
   };
 
@@ -333,19 +341,6 @@ export default function QuoteForm({ isInline = false }: QuoteFormProps) {
         {errors.kvkkConsent && <span role="alert" className="text-[10px] text-rose-500 font-semibold block">{errors.kvkkConsent}</span>}
       </div>
 
-      {/* Cloudflare Turnstile */}
-      <Turnstile siteKey={turnstileSiteKey} onVerify={(token) => {
-        setTurnstileToken(token);
-        if (errors.turnstileToken) {
-          setErrors((prev) => {
-            const next = { ...prev };
-            delete next.turnstileToken;
-            return next;
-          });
-        }
-      }} />
-      {errors.turnstileToken && <span role="alert" className="text-[10px] text-rose-500 font-semibold text-center block">{errors.turnstileToken}</span>}
-
       {/* Submit button */}
       <button
         type="submit"
@@ -363,7 +358,7 @@ export default function QuoteForm({ isInline = false }: QuoteFormProps) {
         ) : (
           <>
             <Send className="w-4 h-4" />
-            <span>Fiyat Teklifi Al</span>
+            <span>Fiyat Teklifi Al ve WhatsApp ile Gönder</span>
           </>
         )}
       </button>
@@ -377,15 +372,19 @@ export default function QuoteForm({ isInline = false }: QuoteFormProps) {
       </div>
       
       <div className="space-y-2">
-        <h3 className={`font-display font-black text-xl ${isInline ? 'text-white' : 'text-brand-dark'}`}>Son Adım: Mesajı Gönderin!</h3>
+        <h3 className={`font-display font-black text-xl ${isInline ? 'text-white' : 'text-brand-dark'}`}>
+          {popupBlocked ? 'WhatsApp Penceresi Engellendi!' : 'Son Adım: Mesajı Gönderin!'}
+        </h3>
         <p className={`text-xs font-semibold ${isInline ? 'text-slate-300' : 'text-slate-700'} leading-relaxed`}>
-          Teklif detaylarınız hazırlandı. Talebinizin ulaşması için açılan WhatsApp penceresindeki hazır mesajı &quot;gönder&quot; butonuna basarak bize iletiniz. Eğer pencere açılmadıysa aşağıdaki yeşil butona basarak gönderebilirsiniz.
+          {popupBlocked
+            ? 'Tarayıcınız otomatik yönlendirmeyi engelledi. Talebinizi bize iletmek için lütfen aşağıdaki yeşil WhatsApp butonuna basarak hazır mesajı gönderin.'
+            : 'Teklif detaylarınız hazırlandı. Talebinizin ulaşması için açılan WhatsApp penceresindeki hazır mesajı "gönder" butonuna basarak bize iletiniz. Eğer pencere açılmadıysa aşağıdaki yeşil butona basarak gönderebilirsiniz.'}
         </p>
         <p className={`text-[11px] font-medium pt-1 ${isInline ? 'text-slate-400' : 'text-slate-500'}`}>Tahmini taşınma maliyet aralığınız:</p>
       </div>
 
       <div className="bg-brand-dark text-brand-accent rounded px-6 py-3 font-display font-black text-xl tracking-wide border border-brand-accent/20">
-        {serverEstimate ? `${serverEstimate.min.toLocaleString('tr-TR')} TL - ${serverEstimate.max.toLocaleString('tr-TR')} TL` : 'Yükleniyor...'}
+        {estimate ? `${estimate.min.toLocaleString('tr-TR')} TL - ${estimate.max.toLocaleString('tr-TR')} TL` : 'Hesaplanıyor...'}
       </div>
       <p className={`text-[10px] font-bold italic ${isInline ? 'text-slate-400' : 'text-brand-dark/70'}`}>
         * Başlangıç fiyatıdır. Kesin fiyat ücretsiz ekspertiz sonrası netleşir.
@@ -394,17 +393,19 @@ export default function QuoteForm({ isInline = false }: QuoteFormProps) {
       <div className="flex flex-col gap-2.5 w-full pt-4">
         {/* WhatsApp Button */}
         <a
+          ref={fallbackButtonRef}
           href={getWhatsAppLink()}
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => {
             trackEvent('whatsapp_yonlendirme');
+            trackEvent('whatsapp_fallback_tiklandi');
             trackEvent('whatsapp_tikla', { konum: 'form_basari', sayfa: window.location.pathname });
           }}
-          className="bg-[#25D366] hover:bg-[#20ba5a] text-white font-black py-3.5 rounded-xl border border-emerald-700 transition-all duration-200 shadow-md text-xs flex items-center justify-center gap-2 w-full animate-bounce"
+          className="bg-[#25D366] hover:bg-[#20ba5a] text-white font-black py-3.5 rounded-xl border border-emerald-700 transition-all duration-200 shadow-md text-xs flex items-center justify-center gap-2 w-full animate-bounce focus:outline-none focus:ring-2 focus:ring-emerald-400"
         >
           <MessageCircle className="w-4 h-4 fill-current" />
-          <span>WhatsApp&apos;tan Mesajı Gönder</span>
+          <span>{popupBlocked ? "Mesajı WhatsApp'tan Gönder (Tıklayın)" : "WhatsApp'tan Mesajı Gönder"}</span>
         </a>
 
         {/* Call Button */}
@@ -434,7 +435,7 @@ export default function QuoteForm({ isInline = false }: QuoteFormProps) {
 
       <div className="space-y-1">
         <h3 className={`font-display font-black text-xl ${isInline ? 'text-white' : 'text-brand-dark'}`}>Gönderim Başarısız</h3>
-        <p className={`text-xs font-semibold ${isInline ? 'text-slate-300' : 'text-slate-700'}`}>{errorMessage}</p>
+        <p className={`text-xs font-semibold ${isInline ? 'text-slate-300' : 'text-slate-700'}`}>İstek işlenemedi.</p>
       </div>
 
       <p className={`text-xs font-medium ${isInline ? 'text-slate-400' : 'text-slate-600'}`}>Alternatif olarak doğrudan bize ulaşarak anında fiyat alabilirsiniz:</p>

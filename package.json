@@ -8,7 +8,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "audit": "npm run build && node scripts/check-metadata.mjs && node scripts/check-headings.mjs && node scripts/check-schema.mjs && node scripts/check-links.mjs && node scripts/check-anchors.mjs && node scripts/check-images.mjs && node scripts/word-count.mjs && node scripts/similarity-check.mjs && node scripts/check-cannibalization.mjs && node scripts/check-geo-chunks.mjs",
+    "audit": "npm run build && node scripts/check-metadata.mjs && node scripts/check-headings.mjs && node scripts/check-schema.mjs && node scripts/check-links.mjs && node scripts/check-anchors.mjs && node scripts/check-images.mjs && node scripts/word-count.mjs && node scripts/similarity-check.mjs && node scripts/check-cannibalization.mjs && node scripts/check-geo-chunks.mjs && node scripts/check-route-consistency.mjs",
     "verify:sitemap": "node scripts/verify-sitemap.mjs",
     "verify:metadata": "node scripts/check-metadata.mjs",
     "optimize:images": "node scripts/optimize-images.mjs"

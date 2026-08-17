@@ -1,11 +1,12 @@
 import { SITE } from '@/lib/site-config';
 import React from 'react';
 import type { Metadata } from 'next';
-import { Phone, Mail, MapPin, Clock, Map } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 import JsonLd from '@/components/JsonLd';
 import { localBusinessSchema } from '@/lib/schema';
 import Breadcrumb from '@/components/Breadcrumb';
 import QuoteForm from '@/components/QuoteForm';
+import ContactMap from '@/components/ContactMap';
 
 export const metadata: Metadata = {
   title: 'İletişim',
@@ -58,7 +59,7 @@ export default function IletisimPage() {
                     </div>
                     <div>
                       <span className="font-bold text-white block mb-0.5">Adres:</span>
-                      <p className="text-slate-400">Ahi Evran Mahallesi, Merkez / Kırşehir</p>
+                      <p className="text-slate-400">{SITE.address.street}, {SITE.address.locality} / {SITE.address.region}</p>
                     </div>
                   </div>
 
@@ -69,7 +70,7 @@ export default function IletisimPage() {
                     <div>
                       <span className="font-bold text-white block mb-0.5">Telefon / GSM:</span>
                       <a href={SITE.phoneHref} className="text-brand-accent hover:underline font-bold text-base">
-                        0537 312 34 47
+                        {SITE.phoneDisplay}
                       </a>
                     </div>
                   </div>
@@ -92,7 +93,7 @@ export default function IletisimPage() {
                     </div>
                     <div>
                       <span className="font-bold text-white block mb-0.5">Çalışma Saatleri:</span>
-                      <p className="text-slate-400">Hafta İçi ve Hafta Sonu: 07:00 – 22:00</p>
+                      <p className="text-slate-400">Hafta İçi ve Hafta Sonu: {SITE.hours.opens} – {SITE.hours.closes}</p>
                     </div>
                   </div>
                 </div>
@@ -111,41 +112,8 @@ export default function IletisimPage() {
 
           </div>
 
-          {/* Bottom Full-Width Column: Map Embed */}
-          <div className="mt-12 bg-white rounded-2xl p-8 border border-slate-200/60 shadow-md space-y-6">
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-100 pb-5">
-              <div>
-                <h2 className="font-display font-extrabold text-brand-dark text-xl flex items-center gap-2">
-                  <Map className="w-5 h-5 text-brand-accent" />
-                  <span>Google Haritalar Konumumuz</span>
-                </h2>
-                <p className="text-slate-500 text-xs mt-1">
-                  Kırşehir Merkez ofisimize ait konum bilgisine harita üzerinden erişebilirsiniz.
-                </p>
-              </div>
-              <a
-                href="https://share.google/YoiHqgk0tx65LVd0H"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-brand-accent hover:bg-brand-accentHover text-brand-dark font-extrabold py-3 px-6 rounded-xl transition-all duration-200 text-xs flex items-center justify-center gap-2 cursor-pointer active:scale-95 shadow-md"
-              >
-                <MapPin className="w-4 h-4" />
-                <span>Yol Tarifi Alın</span>
-              </a>
-            </div>
-
-            {/* Map Iframe */}
-            <div className="w-full aspect-video md:aspect-[3/1] rounded-xl overflow-hidden border border-slate-200 shadow-inner bg-brand-dark/5 relative">
-              <iframe
-                title="Kırşehir Aybar Nakliyat Google Harita Konumu"
-                src="https://maps.google.com/maps?q=Kırşehir%20Aybar%20Evden%20Eve%20Nakliyat&t=&z=15&ie=UTF8&iwloc=&output=embed"
-                className="absolute inset-0 w-full h-full border-0 animate-fade-in"
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              ></iframe>
-            </div>
-          </div>
+          {/* Bottom Full-Width Column: Map Embed with Cookie Consent Gate */}
+          <ContactMap />
         </section>
       </main>
     </>

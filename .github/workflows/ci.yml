@@ -16,7 +16,7 @@ jobs:
     - name: Use Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: '20'
+        node-version: '22'
         cache: 'npm'
 
     - name: Install dependencies
@@ -33,13 +33,9 @@ jobs:
       env:
         NEXT_PUBLIC_GA_ID: G-TESTGAID123
         NEXT_PUBLIC_CLARITY_ID: claritytest
-        NEXT_PUBLIC_TURNSTILE_SITE_KEY: 1x00000000000000000000AA
-        TURNSTILE_SECRET_KEY: 1x00000000000000000000000000000000AA
 
     - name: Run Automated SEO Audit
       run: npm run audit
       env:
         NEXT_PUBLIC_GA_ID: G-TESTGAID123
         NEXT_PUBLIC_CLARITY_ID: claritytest
-        NEXT_PUBLIC_TURNSTILE_SITE_KEY: 1x00000000000000000000AA
-        TURNSTILE_SECRET_KEY: 1x00000000000000000000000000000000AA

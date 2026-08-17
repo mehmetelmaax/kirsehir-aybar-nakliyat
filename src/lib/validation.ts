@@ -16,7 +16,7 @@ export const QuoteFormSchema = z.object({
   name: z.string()
     .min(2, { message: 'Ad soyad en az 2 karakter olmalıdır.' })
     .max(60, { message: 'Ad soyad en fazla 60 karakter olmalıdır.' })
-    .regex(/^[a-zA-ZÇŞĞÜÖİçşğüöı\s]+$/, { message: 'Ad soyad yalnızca harf ve boşluk içerebilir.' }),
+    .regex(/^[a-zA-ZÇŞĞÜÖİçşğüöı\s'\-]+$/, { message: 'Ad soyad yalnızca harf, boşluk, kesme işareti ve tire içerebilir.' }),
     
   phone: z.string()
     .refine(val => {
@@ -36,8 +36,7 @@ export const QuoteFormSchema = z.object({
   }),
   
   website: z.string().max(0, { message: 'Bot protection triggered.' }).optional().default(''), // honeypot
-  kvkkConsent: z.literal(true, { message: 'KVKK aydınlatma metnini onaylamalısınız.' }),
-  turnstileToken: z.string().min(1, { message: 'Lütfen robot doğrulamasını tamamlayın.' })
+  kvkkConsent: z.literal(true, { message: 'KVKK aydınlatma metnini onaylamalısınız.' })
 });
 
 export type QuoteFormData = z.infer<typeof QuoteFormSchema>;

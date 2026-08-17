@@ -21,55 +21,55 @@ export const metadata: Metadata = {
 
 export default function SehirlerarasiPage() {
   const sss = [
-  {
-    "question": "Kırşehir - İstanbul evden eve nakliye kaç gün sürer?",
-    "answer": "Kırşehir’dan İstanbul’a taşınmalarımız Aksaray, Ankara, Bolu güzergahı üzerinden yaklaşık 950 km olup, yükleme yapıldıktan 24 saat sonra (ertesi gün sabah) teslim edilmektedir."
-  },
-  {
-    "question": "Kırşehir - Ankara ev taşıma süresi ve montajı nasıl yapılır?",
-    "answer": "Kırşehir - Ankara arası mesafemiz Akçakent tünelleri ve Aksaray yolu üzerinden 490 km’dir. Eşyalarınız aynı gün akşamüstü yeni evinizde marangoz montaj dahil anahtar teslim edilir."
-  },
-  {
-    "question": "Kırşehir - İzmir nakliyat seferleriniz hangi sıklıktadır?",
-    "answer": "İzmir güzergahımıza (Manisa, Uşak, Afyon üzerinden 900 km) haftada 3 gün düzenli parsiyel ve komple eşya taşıma seferleri düzenlenmektedir."
-  },
-  {
-    "question": "Kırşehir - Bursa arası mobilya paketleme standardınız nedir?",
-    "answer": "Bursa yönüne (780 km) olan tüm taşımalarımızda eşyalarınız çift kat patpat naylonlarla sarılır ve yol sarsıntısına karşı araç içinde kilitli gergilerle sabitlenir."
-  },
-  {
-    "question": "Kırşehir - Antalya nakliye fiyatları ne kadardır?",
-    "answer": "Antalya rotası (Alanya, Manavgat geçişli 620 km) için fiyatlar oda sayısına göre ortalama 14.000 TL ile 22.000 TL arasındadır."
-  },
-  {
-    "question": "Kırşehir - Kayseri arası asansörlü nakliye yapıyor musunuz?",
-    "answer": "Evet. Kayseri yönüne (Niğde üzerinden 330 km) 25. kata kadar ulaşabilen kendi mobil eşya asansörlerimizle sigortalı taşımacılık sunmaktadır."
-  },
-  {
-    "question": "Kırşehir - Konya nakliye süresi ne kadardır?",
-    "answer": "Konya (Ereğli geçişli 350 km) ev taşıma operasyonlarımız sabah yüklenip, aynı gün akşamüstü Konya’daki dairenizde sonlandırılır."
-  },
-  {
-    "question": "Kırşehir - Gaziantep arası parça eşya taşır mısınız?",
-    "answer": "Evet. Gaziantep (Nurdağı geçişli 220 km) yönüne parça eşyalarınızı diğer müşterilerimizin eşyalarıyla birleştirerek uygun fiyata sevk ediyoruz."
-  },
-  {
-    "question": "Kırşehir - Mersin ev taşıma operasyonları kaç saat sürer?",
-    "answer": "Kırşehir - Mersin arası (85 km) taşımalarımız sabah 08:00’de Merkez’da başlayıp, öğlen 14:00’te Mersin’deki yeni dairenizde montaj dahil biter."
-  },
-  {
-    "question": "Kırşehir - Hatay nakliye hizmeti K3 belgeli mi?",
-    "answer": "Evet. İskenderun ve Antakya (190 km) güzergahındaki tüm ev taşıma kamyonlarımız Ulaştırma Bakanlığı onaylı K3 belgesine sahiptir."
-  },
-  {
-    "question": "Kırşehir - Kahramanmaraş arası asansör kurulabilir mi?",
-    "answer": "Evet. Kahramanmaraş merkez ilçelerine (180 km) kendi mobil asansör araçlarımızla gidip yüksek katlı rezidanslara kurulum sunmaktadır."
-  },
-  {
-    "question": "Kırşehir - Şanlıurfa taşınma fiyatı nasıl belirlenir?",
-    "answer": "Şanlıurfa (360 km) nakliyat bedeli, otoyol geçiş ücretleri, kat numaraları ve oda yoğunluğuna göre sabit fiyatlı sözleşmeyle belirlenir."
-  }
-];
+    {
+      "question": "Kırşehir - İstanbul evden eve nakliye kaç gün sürer?",
+      "answer": "Kırşehir'den İstanbul'a taşınmalarımız Kırıkkale, Ankara, Bolu güzergâhı üzerinden yaklaşık 700 km olup, yükleme yapıldıktan 1-2 iş günü içerisinde teslim edilmektedir."
+    },
+    {
+      "question": "Kırşehir - Ankara ev taşıma süresi ve montajı nasıl yapılır?",
+      "answer": "Kırşehir - Ankara arası mesafemiz Kırıkkale - Bala güzergâhı üzerinden yaklaşık 185 km'dir. Eşyalarınız aynı gün akşamüstü veya ertesi gün yeni evinizde marangoz montaj dahil anahtar teslim edilir."
+    },
+    {
+      "question": "Kırşehir - İzmir nakliyat seferleriniz hangi sıklıktadır?",
+      "answer": "İzmir güzergâhımıza (Ankara, Afyon, Uşak, Manisa üzerinden 750 km) haftada 3 gün düzenli parsiyel ve komple eşya taşıma seferleri düzenlenmektedir."
+    },
+    {
+      "question": "Kırşehir - Bursa arası mobilya paketleme standardınız nedir?",
+      "answer": "Bursa yönüne (540 km) olan tüm taşımalarımızda eşyalarınız ambalajlanır ve yol sarsıntısına karşı araç içinde gergilerle sabitlenir."
+    },
+    {
+      "question": "Kırşehir - Antalya nakliye fiyatları ne kadardır?",
+      "answer": "Antalya rotası (Konya, Seydişehir geçişli 570 km) için fiyatlar oda sayısına göre ortalama 40.000 TL ile 66.000 TL arasındadır."
+    },
+    {
+      "question": "Kırşehir - Kayseri arası asansörlü nakliye yapıyor musunuz?",
+      "answer": "Evet. Kayseri yönüne (Mucur, Hacıbektaş üzerinden 140 km) 25. kata kadar ulaşabilen kendi mobil eşya asansörlerimizle sigortalı taşımacılık sunmaktayız."
+    },
+    {
+      "question": "Kırşehir - Konya nakliye süresi ne kadardır?",
+      "answer": "Konya (Aksaray geçişli 350 km) ev taşıma operasyonlarımız sabah yüklenip, aynı gün Konya’daki dairenizde sonlandırılır."
+    },
+    {
+      "question": "Kırşehir - Gaziantep arası parça eşya taşır mısınız?",
+      "answer": "Evet. Gaziantep (TAG otoyolu üzerinden 570 km) yönüne parça eşyalarınızı diğer müşterilerimizin eşyalarıyla birleştirerek uygun fiyata sevk ediyoruz."
+    },
+    {
+      "question": "Kırşehir - Mersin ev taşıma operasyonları kaç saat sürer?",
+      "answer": "Kırşehir - Mersin arası (430 km) taşımalarımız sabah 08:00'de Kırşehir'de başlayıp, sürüş ve montaj dahil ortalama 1-2 iş günü içerisinde tamamlanmaktadır."
+    },
+    {
+      "question": "Kırşehir - Hatay nakliye hizmeti K3 belgeli mi?",
+      "answer": "Evet. İskenderun ve Antakya güzergahındaki tüm ev taşıma kamyonlarımız Ulaştırma Bakanlığı onaylı K3 belgesine sahiptir."
+    },
+    {
+      "question": "Kırşehir - Kahramanmaraş arası asansör kurulabilir mi?",
+      "answer": "Evet. Kahramanmaraş merkez ilçelerine kendi mobil asansör araçlarımızla gidip yüksek katlı rezidanslara kurulum sunmaktayız."
+    },
+    {
+      "question": "Kırşehir - Şanlıurfa taşınma fiyatı nasıl belirlenir?",
+      "answer": "Şanlıurfa nakliyat bedeli, otoyol geçiş ücretleri, kat numaraları ve oda yoğunluğuna göre sabit fiyatlı sözleşmeyle belirlenir."
+    }
+  ];
 
   const schemas = {
     '@context': 'https://schema.org',

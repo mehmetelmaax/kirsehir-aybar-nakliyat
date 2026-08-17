@@ -58,9 +58,10 @@ Sitedeki JSON-LD şemalarının Google arama sonuçlarında yıldızlı veya zen
 
 Yayım sonrasında sıralamaları ve site sağlığını korumak adına haftalık kontroller planlayın:
 
-### 1. Hafta Kontrolleri (İndeks Sağlığı)
+### 1. Hafta Kontrolleri (İndeks Sağlığı & Dönüşüm Ölçümü)
 - GSC panelinde "Sayfa Sayısı / Dizin Oluşturma" raporunu inceleyin. Sayfaların kaç tanesinin indekse girdiğini görün.
 - `site:kirsehiraybarnakliyat.com.tr` araması yaparak Google indeks listesini manuel analiz edin.
+- GA4 ve Google Ads dönüşüm izleme panellerinde teklif formunun oluşturduğu `teklif_formu_gonderildi`, `whatsapp_pencere_acildi`, `whatsapp_pencere_engellendi` ve `whatsapp_fallback_tiklandi` etkinliklerinin tetiklendiğini ve doğru şekilde sayıldığını test edin.
 
 ### 2. Hafta Kontrolleri (Performans & CWV)
 - Search Console **"Önemli Web Verileri" (Core Web Vitals)** raporunu kontrol edin. Mobil ve masaüstü CLS/LCP/INP değerlerinde "Kırmızı" (Zayıf) uyarı var mı bakın.
@@ -72,5 +73,5 @@ Yayım sonrasında sıralamaları ve site sağlığını korumak adına haftalı
 
 ### 4. Hafta Kontrolleri (Topical Authority ve Sıralama Analizi)
 - "Kırşehir nakliyat fiyatları", "tasıma sigortası nedir" gibi yüksek dönüşümlü kelimelerdeki Google sıra pozisyonlarınızı takip aracınızla kontrol edin.
-- Yeni eklediğimiz 12 blog yazısının organik impressions (gösterim) and click (tıklama) almaya başladığını GSC "Performans" raporundan teyit edin.
+- Yeni eklediğimiz 14 blog yazısının organik impressions (gösterim) ve click (tıklama) almaya başladığını GSC "Performans" raporundan teyit edin.
 - Analytics panelinde hedeflenen telefon ve WhatsApp tıklama dönüşüm oranlarını analiz ederek A/B testleri kurgulayın.

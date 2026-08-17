@@ -1,4 +1,5 @@
 import { ImageResponse } from 'next/og';
+import { SITE } from '@/lib/site-config';
 
 export const runtime = 'nodejs';
 
@@ -106,7 +107,7 @@ export default async function Image() {
           }}
         >
           <span style={{ color: '#102A43', marginRight: '10px' }}>📞</span>
-          <span style={{ color: '#102A43' }}>0537 312 34 47</span>
+          <span style={{ color: '#102A43' }}>{SITE.phoneDisplay}</span>
         </div>
       </div>
     ),
