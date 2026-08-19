@@ -12,7 +12,8 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
-  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const [mobileDistrictsOpen, setMobileDistrictsOpen] = useState(false);
 
   // Accessible Dropdowns state
   const [servicesOpen, setServicesOpen] = useState(false);
@@ -279,53 +280,59 @@ export default function Header() {
           <Link onClick={toggleMenu} href="/hakkimizda" className="text-white text-base font-bold hover:text-brand-accent transition-colors">Hakkımızda</Link>
           <Link onClick={toggleMenu} href="/galeri" className="text-white text-base font-bold hover:text-brand-accent transition-colors">Galeri</Link>
 
-          {/* Collapsible Mobile Dropdown */}
-          <div className="w-full max-w-xs text-center border-t border-b border-white/10 py-4 space-y-3">
-            <button
-              onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
-              className="w-full flex items-center justify-between px-4 py-2.5 bg-white/5 hover:bg-white/10 text-white rounded-xl text-xs font-bold transition-all focus:outline-none cursor-pointer"
-            >
-              <span>Hizmetler ve Bölgelerimiz</span>
-              <ChevronDown className={`w-4 h-4 text-brand-accent transition-transform duration-200 ${mobileDropdownOpen ? 'rotate-180' : ''}`} />
-            </button>
+          {/* Collapsible Mobile Dropdowns */}
+          <div className="w-full max-w-xs text-center border-t border-b border-white/10 py-4 space-y-4">
+            {/* Dropdown 1: Hizmetlerimiz */}
+            <div className="space-y-2">
+              <button
+                onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+                className="w-full flex items-center justify-between px-4 py-2.5 bg-white/5 hover:bg-white/10 text-white rounded-xl text-xs font-bold transition-all focus:outline-none cursor-pointer"
+              >
+                <span>Hizmetlerimiz</span>
+                <ChevronDown className={`w-4 h-4 text-brand-accent transition-transform duration-200 ${mobileServicesOpen ? 'rotate-180' : ''}`} />
+              </button>
 
-            {mobileDropdownOpen && (
-              <div className="space-y-4 pt-3 pb-2 text-center transition-all">
-                {/* Hizmetlerimiz */}
-                <div className="space-y-2">
-                  <span className="text-brand-accent text-[9px] font-black tracking-wider block">HİZMET ALANLARIMIZ</span>
-                  <div className="grid grid-cols-2 gap-1.5">
-                    <Link onClick={toggleMenu} href="/hizmetler/sehirici-evden-eve-nakliyat" className="text-white hover:text-brand-accent text-[10px] font-semibold border border-white/10 rounded px-2 py-1.5">Şehiriçi</Link>
-                    <Link onClick={toggleMenu} href="/hizmetler/sehirlerarasi-evden-eve-nakliyat" className="text-white hover:text-brand-accent text-[10px] font-semibold border border-white/10 rounded px-2 py-1.5">Şehirlerarası</Link>
-                    <Link onClick={toggleMenu} href="/hizmetler/asansorlu-evden-eve-nakliyat" className="text-white hover:text-brand-accent text-[10px] font-semibold border border-white/10 rounded px-2 py-1.5">Asansörlü</Link>
-                    <Link onClick={toggleMenu} href="/hizmetler/ofis-ve-isyeri-tasimaciligi" className="text-white hover:text-brand-accent text-[10px] font-semibold border border-white/10 rounded px-2 py-1.5">Ofis / İşyeri</Link>
-                    <Link onClick={toggleMenu} href="/hizmetler/profesyonel-esya-paketleme" className="text-white hover:text-brand-accent text-[10px] font-semibold border border-white/10 rounded px-2 py-1.5 col-span-2">Paketleme</Link>
-                    <Link onClick={toggleMenu} href="/hizmetler/ucretsiz-ekspertiz" className="text-white hover:text-brand-accent text-[10px] font-semibold border border-white/10 rounded px-2 py-1.5 col-span-2">Ekspertiz</Link>
-                    <Link onClick={toggleMenu} href="/hizmetler/esya-depolama" className="text-white hover:text-brand-accent text-[10px] font-semibold border border-white/10 rounded px-2 py-1.5">Depolama</Link>
-                    <Link onClick={toggleMenu} href="/hizmetler/parca-esya-tasima" className="text-white hover:text-brand-accent text-[10px] font-semibold border border-white/10 rounded px-2 py-1.5">Parça Eşya</Link>
-                    <Link onClick={toggleMenu} href="/hizmetler/piyano-ve-kasa-tasima" className="text-white hover:text-brand-accent text-[10px] font-semibold border border-white/10 rounded px-2 py-1.5 col-span-2">Piyano & Kasa</Link>
-                  </div>
+              {mobileServicesOpen && (
+                <div className="grid grid-cols-2 gap-1.5 pt-1.5">
+                  <Link onClick={toggleMenu} href="/hizmetler/sehirici-evden-eve-nakliyat" className="text-white hover:text-brand-accent text-[10px] font-semibold border border-white/10 rounded px-2 py-1.5">Şehiriçi</Link>
+                  <Link onClick={toggleMenu} href="/hizmetler/sehirlerarasi-evden-eve-nakliyat" className="text-white hover:text-brand-accent text-[10px] font-semibold border border-white/10 rounded px-2 py-1.5">Şehirlerarası</Link>
+                  <Link onClick={toggleMenu} href="/hizmetler/asansorlu-evden-eve-nakliyat" className="text-white hover:text-brand-accent text-[10px] font-semibold border border-white/10 rounded px-2 py-1.5">Asansörlü</Link>
+                  <Link onClick={toggleMenu} href="/hizmetler/ofis-ve-isyeri-tasimaciligi" className="text-white hover:text-brand-accent text-[10px] font-semibold border border-white/10 rounded px-2 py-1.5">Ofis / İşyeri</Link>
+                  <Link onClick={toggleMenu} href="/hizmetler/profesyonel-esya-paketleme" className="text-white hover:text-brand-accent text-[10px] font-semibold border border-white/10 rounded px-2 py-1.5 col-span-2">Paketleme</Link>
+                  <Link onClick={toggleMenu} href="/hizmetler/ucretsiz-ekspertiz" className="text-white hover:text-brand-accent text-[10px] font-semibold border border-white/10 rounded px-2 py-1.5 col-span-2">Ekspertiz</Link>
+                  <Link onClick={toggleMenu} href="/hizmetler/esya-depolama" className="text-white hover:text-brand-accent text-[10px] font-semibold border border-white/10 rounded px-2 py-1.5">Depolama</Link>
+                  <Link onClick={toggleMenu} href="/hizmetler/parca-esya-tasima" className="text-white hover:text-brand-accent text-[10px] font-semibold border border-white/10 rounded px-2 py-1.5">Parça Eşya</Link>
+                  <Link onClick={toggleMenu} href="/hizmetler/piyano-ve-kasa-tasima" className="text-white hover:text-brand-accent text-[10px] font-semibold border border-white/10 rounded px-2 py-1.5 col-span-2">Piyano & Kasa</Link>
                 </div>
+              )}
+            </div>
 
-                {/* Bölgelerimiz */}
-                <div className="space-y-2 pt-2 border-t border-white/5">
-                  <span className="text-brand-accent text-[9px] font-black tracking-wider block">HİZMET BÖLGELERİMİZ</span>
-                  <div className="grid grid-cols-2 gap-1.5">
-                    <Link onClick={toggleMenu} href="/hizmetler/sehirlerarasi-evden-eve-nakliyat" className="text-white hover:text-brand-accent text-[9px] font-semibold border border-white/10 rounded py-1.5 col-span-2">Şehirlerarası Lojistik</Link>
-                    {DISTRICTS.map((d) => (
-                      <Link 
-                        key={d.slug}
-                        onClick={toggleMenu} 
-                        href={`/bolgeler/${d.slug}`} 
-                        className="text-white hover:text-brand-accent text-[9px] font-semibold border border-white/10 rounded py-1.5"
-                      >
-                        {d.name}
-                      </Link>
-                    ))}
-                  </div>
+            {/* Dropdown 2: Hizmet Bölgelerimiz */}
+            <div className="space-y-2">
+              <button
+                onClick={() => setMobileDistrictsOpen(!mobileDistrictsOpen)}
+                className="w-full flex items-center justify-between px-4 py-2.5 bg-white/5 hover:bg-white/10 text-white rounded-xl text-xs font-bold transition-all focus:outline-none cursor-pointer"
+              >
+                <span>Hizmet Bölgelerimiz</span>
+                <ChevronDown className={`w-4 h-4 text-brand-accent transition-transform duration-200 ${mobileDistrictsOpen ? 'rotate-180' : ''}`} />
+              </button>
+
+              {mobileDistrictsOpen && (
+                <div className="grid grid-cols-2 gap-1.5 pt-1.5">
+                  <Link onClick={toggleMenu} href="/hizmetler/sehirlerarasi-evden-eve-nakliyat" className="text-white hover:text-brand-accent text-[9px] font-semibold border border-white/10 rounded py-1.5 col-span-2">Şehirlerarası Lojistik</Link>
+                  {DISTRICTS.map((d) => (
+                    <Link 
+                      key={d.slug}
+                      onClick={toggleMenu} 
+                      href={`/bolgeler/${d.slug}`} 
+                      className="text-white hover:text-brand-accent text-[9px] font-semibold border border-white/10 rounded py-1.5"
+                    >
+                      {d.name}
+                    </Link>
+                  ))}
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
 
           <Link onClick={toggleMenu} href="/hizmetler/sehirlerarasi-evden-eve-nakliyat#rotalar" className="text-white text-base font-bold hover:text-brand-accent transition-colors">Rotalar</Link>
